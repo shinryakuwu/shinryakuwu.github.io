@@ -1,3 +1,14 @@
+@media screen and (max-width: 678px) {
+	.your_name, .email, textarea {
+		max-width: 90%;
+		display: block;
+	}
+
+	.your_name {
+		margin-bottom: 15px;
+	}
+}
+
 @media screen and (max-width: 770px) {
 	.br {
 		display: none;
@@ -62,7 +73,7 @@
 	}
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 980px) {
 	.portfolio_li {
 		margin-bottom: 10px;
 		padding-left: 15px;
@@ -90,23 +101,14 @@
 	.footer_li {
 		padding-right: 15px;
 		padding-left: 15px;
+		font-size: 18px;
 	}
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 860px) {
 	.footer_li {
 		padding-top: 10px;
 		padding-bottom: 10px;
-	}
-}
-
-@media screen and (max-width: 678px) {
-	.your_name, .email, textarea {
-		max-width: 90%;
-		display: block;
-	}
-
-	.your_name {
-		margin-bottom: 15px;
+		font-size: 18px;
 	}
 }
