@@ -1,0 +1,102 @@
+.services_heading {
+	font-size: 40px;
+	letter-spacing: 3px;
+	text-align: center;
+	padding-bottom: 22px;
+}
+
+.services_info {
+	padding-top: 22px;
+	text-align: center;
+	font-size: 18px;
+	padding-bottom: 82px;
+}
+
+.services_ul, .team_ul {
+	text-align: center;
+	padding-bottom: 75px;
+}
+
+.services_li, .team_li, .stats_li {
+	display: inline-block;
+	max-width: 200px;
+	text-align: center;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+.services_icon_heading {
+	font-size: 24px;
+	padding-bottom: 15px;
+	padding-top: 55px;
+}
+
+.services_icon_info {
+	padding-bottom: 50px;
+}
+
+.team_heading {
+	color: #3c4761;
+	font-size: 41px;
+	text-align: center;
+	letter-spacing: 3px;
+	padding-top: 100px;
+	padding-bottom: 15px;
+}
+
+.team_info {
+	text-align: center;
+	padding-top: 18px;
+	font-size: 20px;
+	padding-bottom: 80px;
+}
+
+.name {
+	font-size: 24px;
+	padding-top: 25px;
+	color: #27283d;
+}
+
+.position {
+	color: #30bae7;
+}
+
+.person_info {
+	color: #3c4761;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+.icons img {
+	padding-left: 4px;
+	padding-right: 4px;
+	margin-bottom: 45px;
+}
+
+.skills {
+	font-size: 40px;
+	text-align: center;
+	padding-top: 100px;
+	padding-bottom: 15px;
+}
+
+.skills_info {
+	padding-top: 15px;
+	max-width: 570px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding-bottom: 80px;
+}
+
+.stats_text {
+	padding-top: 20px;
+	font-size: 24px;
+	font-weight: 800;
+	padding-bottom: 40px;
+}
+
+.stats_ul {
+	padding-bottom: 65px;
+	text-align: center;
+}

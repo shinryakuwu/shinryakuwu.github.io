@@ -1,0 +1,17 @@
+.footer_li {
+	color: #fff;
+	font-size: 24px;
+	display: inline-block;
+	padding-top: 42px;
+	padding-left: 26px;
+	padding-right: 26px;
+	padding-bottom: 42px;
+}
+
+.footer_ul {
+	text-align: center;
+}
+
+.footer_li:hover {
+	color: #30bae7;
+}

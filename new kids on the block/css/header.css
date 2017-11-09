@@ -1,0 +1,60 @@
+.cuda {
+	padding-left: 15px;
+	padding-bottom: 20px;
+}
+
+.header_ul {
+	float: right;
+}
+
+.header_li {
+	display: inline-block;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+.header_li:hover {
+	background-color: #643a79;
+	border-radius: 4px;
+}
+
+.hi_there {
+	padding-top: 135px;
+	font-size: 42px;
+	max-width: 882px;
+	margin: auto;
+	margin: auto;
+	text-align: center;
+	padding-bottom: 62px;
+}
+
+.header_button {
+	font-size: 18px;
+	width: 290px;
+	margin: auto;
+	margin: auto;
+	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border-radius: 4px;
+	animation-name: btn;
+	animation-duration: 12s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	/*border-bottom: 4px solid #c86a40;*/
+}
+
+@keyframes btn {
+    0% {background-color: #eb7d4b;}
+    25% {background-color: #eb4bc3;}
+    50% {background-color: #3b37ee;}
+    75% {background-color: #37eeb4;}
+    100% {background-color: #bdee37;}
+}
+
+
+
+

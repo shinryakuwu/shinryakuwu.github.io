@@ -1,0 +1,63 @@
+.wrapper {
+	width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+}
+
+.content {
+	max-width: 1120px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.header {
+	color: #fff;
+	background-color: #87509c;
+	padding-top: 55px;
+	padding-bottom: 145px;
+}
+
+.services {
+	background-color: #17c2a4;
+	color: #fff;
+	padding-top: 120px;
+}
+
+.very_fabulous_line {
+	width: 87px;
+	height: 4px;
+	background-color: #000;
+	opacity: .2;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.team {
+	background-color: #e7f1f8;
+}
+
+.stats {
+	background-color: #fff;
+}
+
+.portfolio {
+	background-color: #ffdd99;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.feedback {
+	background-color: #d74680;
+}
+
+.contacts {
+	background-color: #3c5499;
+}
+
+.footer {
+	background-color: #344b8e;
+}

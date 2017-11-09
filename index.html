@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Content</title>
+	<style>
+		@font-face {
+ 			font-family: Proggy;
+			src: url(Proggy.ttf);
+		}
+		* {
+			margin: 0;
+			padding: 0;
+			font-family: Proggy;
+			box-sizing: border-box;
+		}
+		
+		a {
+			text-decoration: none;
+			color: #9ee9ff;
+		}
+
+		li:hover::after {
+			content: '←';
+			padding-left: 8px;
+		}
+
+		body {
+			color: #fff;
+			height: 100%;
+			background: linear-gradient(to top, #7bbcff, #ff96f6);
+			background-size: cover;
+		}
+		
+		.wrapper {
+			height: 100%;
+		}
+
+		h1 {
+			font-size: 5em;
+			padding-bottom: 20px;
+		}
+
+		.info {
+			font-size: 2em;
+		}
+
+		.main {
+			padding-top: 50px;
+			padding-left: 100px;
+			padding-bottom: 75px;
+			min-height: 100%;
+		}
+
+		.above {
+			height: 200px;
+			background-image: url('stars.gif');
+		}
+
+		.below {
+			height: 200px;
+			background-image: url('stars.gif');
+		}
+
+		ul {
+			line-height: 40px;
+			padding-bottom: 20px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="above"></div>
+		<main class="main">
+			<h1>Content:</h1>
+			<div class="info">
+				<ul>
+					<a href="new kids on the block/index.html"><li>Some random site</li></a>
+					<a href="dino game/dino.html"><li>Dino game</li></a>
+				</ul>
+				<div class="soon">COMING SOON: more badly written sites.</div>
+			</div>
+		</main>
+	</div>
+	<div class="below"></div>
+</body>
+</html>

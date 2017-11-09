@@ -1,0 +1,87 @@
+.portfolio_heading {
+	font-size: 40px;
+	text-align: center;
+	padding-top: 100px;
+	padding-bottom: 15px;
+	letter-spacing: 3px;
+}
+
+.portfolio_info {
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 40px;
+	max-width: 520px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.portfolio_li {
+	display: inline-block;
+	background-color: #ebc985;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 7px;
+	padding-bottom: 6px;
+	margin-left: 5px;
+	margin-right: 5px;
+	border-radius: 5px;
+}
+
+.portfolio_li:hover {
+	background-color: #fff;
+}
+
+.portfolio_ul {
+	text-align: center;
+	font-size: 18px;
+}
+
+.works {
+	padding-top: 50px;
+	text-align: center;
+}
+
+.work {
+	display: inline-block;
+	padding-right: 10px;
+}
+
+.work1 {
+	display: inline-block;
+	padding-left: 10px;
+}
+
+.work_pic {
+	max-width: 487px;
+	max-height: 280px;
+}
+
+.work_text {
+	font-size: 18px;
+	padding-top: 20px;
+	padding-bottom: 55px;
+}
+
+.projects_btn {
+	color: #fff;
+	font-size: 18px;
+	width: 290px;
+	margin: auto;
+	margin: auto;
+	text-align: center;
+	padding-top: 22px;
+	padding-bottom: 18px;
+	border-radius: 4px;
+	border-bottom: 4px solid rgba(0, 0, 0, .2);
+	background-color: #17c2a4;
+}
+.projects_btn:active {
+	border-bottom: none;
+	background-color: #15b095;
+	margin-top: 4px;
+	/*border-top: 4px solid rgba(0, 0, 0, .2);*/
+}
+
+.projects_button {
+	padding-bottom: 130px;
+}

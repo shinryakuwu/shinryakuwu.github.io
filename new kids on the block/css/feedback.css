@@ -1,0 +1,59 @@
+.feedback_heading {
+	font-size: 40px;
+	letter-spacing: 3px;
+	text-align: center;
+	padding-bottom: 22px;
+	color: #fff;
+	padding-top: 100px;
+}
+
+.feedback_info {
+	color: #fff;
+	text-align: center;
+	padding-top: 22px;
+	padding-bottom: 80px;
+}
+
+.feedback_ul {
+	text-align: center;
+	padding-bottom: 80px;
+}
+
+.feedback_text {
+	font-style: italic;
+	color: #fff;
+	font-size: 16px;
+	padding-bottom: 20px;
+}
+
+.feedback_name {
+	font-size: 24px;
+	color: #fff;
+}
+
+.feedback_position {
+	color: #ffdd99;
+}
+
+.feedback_photo {
+	float: left;
+}
+
+.feedback_li {
+	display: inline-block;
+	max-width: 470px;
+	vertical-align: top;
+}
+
+.feedback_alltext {
+	padding-left: 40px;
+	max-width: 335px;
+	display: inline-block;
+	text-align: left;
+	padding-bottom: 40px;
+}
+
+.feedback_left {
+	padding-right: 38px;
+}
+
