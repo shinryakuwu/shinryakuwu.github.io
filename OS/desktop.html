@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Webpage</title>
+	<link rel="stylesheet" href="simple-scrollbar/simple-scrollbar.css">
+	<script src="simple-scrollbar/simple-scrollbar.js"></script>
+	<style>
+		@font-face {
+ 			font-family: Tahoma;
+			src: url(Tahoma.ttf);
+		}
+
+		@font-face {
+ 			font-family: Meiryo;
+			src: url(Meiryo.ttf);
+		}
+
+		@font-face {
+			font-family: Oxygene;
+			src: url(OXYGENE1.TTF);
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		html {
+			height: 100%;
+			color: #ae00ff;
+			font-family: Tahoma;
+		}
+
+		.weeb, .file, .star_panel, .window_header, .window_footer, .footer, .popup_x, .ok_button, .page_arrows, audio {
+			-webkit-user-select: none; /* Safari */        
+			-moz-user-select: none; /* Firefox */
+			-ms-user-select: none; /* IE10+/Edge */
+			user-select: none; /* Standard */
+		}
+
+		div::selection {
+			background: #f2a3ff;
+		} 
+		div::-moz-selection {
+			background: #f2a3ff;
+		}
+
+		.gradient {
+			background: linear-gradient(to top, #fda2ff, #89beff);
+			position: relative;
+			overflow: hidden;
+			height: 100%;
+			width: 100%;
+			cursor: url("cursors/cur_norm.cur"), auto;
+		}
+
+		.gradient.dark {
+			background:linear-gradient(to top, #00c5d0, #7a06a6);
+		}
+
+		.main {
+			overflow: hidden;
+			background-image: url('squares.png');
+			height: 100%;
+			position: relative;
+		}
+
+		.footer {
+			height: 40px;
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			background-color: #0ff;
+			border-top: 2px solid #ae00ff;
+		}
+
+		.footer.dark, .start_menu.dark, .window_header.dark, .window_footer.dark {
+			background-color: #00e5ff;
+		}
+
+		.window.dark {
+			background-color: #e164ff;
+		}
+
+		.dreams_block.dark, .scrollbar_bg.dark {
+			border-color: #e164ff;
+		}
+
+		.start {
+			width: 100px;
+			height: 100%;
+			border-right: 2px solid #ae00ff;
+			font-size: 25px;
+			text-align: center;
+			display: inline-block;
+			cursor: url("cursors/cur_point.cur"), auto;
+		}
+
+		.start.active {
+			background-color: #00ccfd;
+		}
+
+		.start.active.dark {
+			background-color: #00bafd;
+		}
+
+		.start_menu {
+			position: absolute;
+			display: none;
+			background-color: #0ff;
+			height: 115px;
+			width: 160px;
+			border: 2px solid #ae00ff;
+			bottom: 38px;
+			font-size: 25px;
+			text-align: center;
+		}
+
+		.theme_switch {
+			border-bottom: 2px solid #ae00ff;
+			height: 75px;
+			cursor: url("cursors/cur_point.cur"), auto;
+		}
+
+		.switch {
+			width: 45px;
+			height: 15px;
+			border: 2px solid #fd3aff;
+			background-color: #fdb3ff;
+			border-radius: 8px;
+			margin: auto;
+			position: relative;
+			top: 5px;
+		}
+
+		.switch img {
+			position: absolute;
+			bottom: -8px;
+			left: -8px;
+		}
+
+		.about_button {
+			cursor: url("cursors/cur_help.cur"), auto;
+		}
+
+		#time {
+			font-size: 23px;
+			display: inline-block;
+			position: absolute;
+			right: 0;
+			padding: 2px 10px 0px 0px;
+		}
+
+		.weeb {
+			font-family: Meiryo;
+		}
+
+		.file_wrapper {
+			max-width: 120px;
+		}
+
+		.file {
+			text-align: center;
+			color: #fff;
+			text-shadow: -1px 0 #ae00ff, 0 2px #ae00ff, 2px 0 #ae00ff, 0 -1px #ae00ff;
+		}
+
+		.file_with_padding {
+			padding-top: 22px;
+		}
+
+		.file.txt {
+			padding: 10px;
+		}
+
+		.file_name {
+			display: inline-block;
+		}
+
+		.icon {
+			width: 73px;
+			height: 73px;
+			margin: 0 auto;
+			position: relative;
+		}
+
+		.icon img {
+			position: absolute;
+		    top: 0;
+		    bottom: 0;
+		    left: 0;
+		    right: 0;
+		    margin: auto;
+		}
+
+		.file_name div {
+			padding: 0px 3px;
+			margin-top: 6px;
+		}
+
+		.file_name.active div, .icon.active {
+			background-color: #ff5bf8;
+		}
+
+		.file_name.active.dark div, .icon.active.dark {
+			background-color: #ff7ffb;
+		}
+
+		.trashcan {
+			position: absolute;
+			bottom: 60px;
+			right: 30px;
+		}
+
+		.window {
+			position: absolute;
+			background-color: #fdb3ff;
+			border: 2px solid #ae00ff;
+			border-radius: 5px;
+			overflow: hidden;
+			z-index: 1;
+		}
+
+		.exe {
+			display: none;
+			z-index: 1;
+			min-width: 338px;
+			min-height: 220px;
+		}
+
+		.gif {
+			display: none;
+			max-height: 85%;
+			min-height: 220px;
+		}
+
+		.trash {
+			display: none;
+			min-height: 185px;
+			min-width: 170px;
+		}
+
+		.gif .window_content img {
+			height: 100%;
+		}
+
+		.window_header, .window_footer {
+			width: 100%;
+			background-color: #0ff;
+		}
+
+		.gif_image {
+			display: none;
+		}
+
+		.default_gif {
+			display: block;
+		}
+
+		.window_header {
+			border-bottom: 2px solid #ae00ff;
+			height: 22px;
+			border-top-right-radius: 3px;
+			border-top-left-radius: 3px;
+			font-size: 15px;
+			padding-left: 6px;
+			position: relative;
+		}
+
+		.draggable {
+			position: absolute;
+			left: 0;
+			height: 20px;
+			width: calc(100% - 34px);
+			cursor: url("cursors/cur_move.cur"), auto;
+		}
+
+		.window_footer {
+			position: absolute;
+			bottom: 0;
+			height: 20px;
+			border-top: 2px solid #ae00ff;
+			border-bottom-right-radius: 3px;
+			border-bottom-left-radius: 3px;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+		}
+
+		.arrows {
+			position: relative;
+		}
+
+		.footer_arrows {
+			margin-right: auto;
+			padding: 0px 2px;
+			min-width: 50px;
+		}
+
+		.arrows span {
+			margin: 2px;
+			position: relative;
+			bottom: 2px;
+			cursor: url("cursors/cur_point.cur"), auto;
+		}
+
+		.useless_rectangle, .useless_rectangle2 {
+			position: relative;
+			border: 2px solid #ae00ff;
+			margin: 2px;
+			height: 14px;
+			width: 120px;
+			font-size: 9px;
+			overflow: hidden;
+		}
+
+		.useless_rectangle {
+			flex-shrink: 2;
+		}
+
+		.useless_rectangle2 {
+			margin-right: 8px;
+		}
+
+		.useless_rectangle2 div {
+			position: absolute;
+			bottom: -3px;
+			right: 3px;
+		}
+
+		.trash_footer_text {
+			position: absolute;
+			bottom: -2px;
+			right: 3px;
+			font-size: 10px;
+		}
+
+		.resize {
+			cursor: url("cursors/cur_resize.cur"), auto;
+		}
+
+		.window_footer img {
+			margin: 0px 2px 1px 3px;
+		}
+
+		.x, .dash {
+			border: 2px solid #ae00ff;
+			position: absolute;
+			height: 14px;
+			width: 14px;
+			top: 3px;
+		}
+
+		.x {
+			right: 3px;
+		}
+
+		.x2, .dash2 {
+			position: relative;
+		}
+
+		.dash {
+			right: 20px;
+		}
+
+		.x2 img {
+			display: block;
+		}
+
+		.x-pixel {
+			height: 2px;
+			width: 2px;
+			position: absolute;
+			background-color: #ae00ff;
+		}
+
+		.x-pixel0 {
+			top: 2px;
+			left: 2px;
+		}
+
+		.x-pixel1 {
+			top: 6px;
+			left: 2px;
+		}
+
+		.x-pixel2 {
+			right: 2px;
+			top: 2px;
+		}
+
+		.x-pixel3 {
+			right: 2px;
+			top: 6px;
+		}
+
+		.x-pixel4 {
+			top: 4px;
+			left: 4px;
+		}
+
+		.dash2 {
+			left: 2px;
+			height: 2px;
+			width: 6px;
+			top: 4px;
+			background-color: #ae00ff;
+		}
+
+		.window_content {
+			height: calc(100% - 40px);
+			position: relative;
+			margin-bottom: 20px;
+		}
+
+		.content_wrapper {
+			position: relative;
+			width: calc(100% - 24px);
+			height: calc(100% - 24px);
+			margin: 12px;
+		}
+
+		.dreams_block {
+			position: relative;
+			width: calc(70% - 19px);
+			height: 100%;
+			max-height: 100%;
+			font-family: Oxygene;
+			font-size: 18px;
+			background-color: #fed6ff;
+			border: 6px double #fdb3ff;
+			/*overflow-y: auto;*/
+			/*overflow-x: hidden;*/
+			display: inline-block;
+			cursor: url("cursors/cur_select.cur"), auto;
+		}
+
+		.frog {
+			width: 100px;
+		}
+
+		.gamecube, .sea {
+			width: 100%;
+		}
+
+		.sea {
+			max-width: 300px;
+		}
+
+		.scrollbar {
+			position: absolute;
+			height: calc(100% - 4px);
+			background-color: #fed6ff;
+			width: 19px;
+			top: 2px;
+			left: calc(70% - 21px);
+			display: inline-block;
+		}
+
+		.scrollbar_bg {
+			position: absolute;
+			width: calc(100% - 4px);
+			height: calc(100% - 4px);
+			background-color: #fed6ff;
+			border: 2px solid #e164ff;
+			background-image: url("scrollbar.png");
+			top: 2px;
+			left: 2px;
+		}
+
+		.star_panel {
+			height: calc(100% - 20px);
+			width: calc(30% - 5px);
+			margin-left: 24px;
+			position: absolute;
+			display: inline-block;
+			overflow: hidden;
+		}
+
+		.starflexx {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-around;
+		}
+
+		.page_navigation {
+			visibility: hidden;
+			position: absolute;
+			bottom: 0;
+			display: inline-block;
+			margin-left: 24px;
+			height: 20px;
+			width: calc(30% - 5px);
+		}
+
+		.page_navigation.active {
+			visibility: visible;
+		}
+
+		.page_arrows {
+			text-align: center;
+		}
+
+		.page_number {
+			display: inline;
+			font-size: 14px;
+			position: relative;
+			bottom: 2px;
+		}
+
+		.page_number.dark {
+			color: #fed6ff;
+		}
+
+		.violet_arrow.dark {
+			display: none;
+		}
+
+		.light_arrow {
+			display: none;
+		}
+
+		.light_arrow.dark {
+			display: inline;
+		}
+
+		.star_icon, .star_empty {
+			padding: 5px 5px 6px 5px;
+			margin: 1px 1px 2px 1px;
+		}
+
+		.star_icon img {
+			display: block;
+		}
+
+		.star_empty {
+			width: 42px;
+			height: 41px;
+		}
+
+		.star_icon:hover, .star_icon.active {
+			background-color: #d793ff;
+			border-radius: 10px;
+		}
+
+		.star_icon.dark:hover, .star_icon.active.dark {
+			background-color: #f2a3ff;
+		}
+
+		.dreams {
+			display: none;
+			margin: 10px;
+		}
+
+		.popup_bg {
+			background-image: url('fish.gif');
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			opacity: 0.4;
+			display: none;
+		}
+
+		.popup {
+			background-image: url('popup bg.jpg');
+			border: 2px solid #ae00ff;
+			border-radius: 3px;
+			width: 45%;
+  			padding-top: 30%; /* 3:2 Aspect Ratio */
+  			position: absolute;
+  			left: 28%;
+  			top: 20%;
+  			background-size: cover;
+  			display: none;
+		}
+
+		.popup_bg.active, .popup.active {
+			display: block;
+		}
+
+		.popup_x {
+			position: absolute;
+			right: 2%;
+			top: 0;
+			font-size: 2vw;
+			transform: scaleX(1.2);
+			-webkit-transform: scaleX(1.2);
+		}
+
+		.popup_wrapper {
+			position: absolute;
+			top: 17%;
+  			left: 3%;
+ 			bottom: 15%;
+  			right: 3%;
+		}
+
+		.welcome {
+			position: absolute;
+			font-size: 2.2vw;
+			text-align: center;
+			margin: 0 auto;
+			width: 100%;
+			text-transform: uppercase;
+			color: #00d1fe;
+			letter-spacing: 0.3vw;
+			top: 3px;
+		}
+
+		.welcome2 {
+			color: #fa64ff;
+			top: 0;
+			left: -3px;
+		}
+
+		.dolphin1, .dolphin0 {
+			position: absolute;
+			top: -15px;
+			width: 23%;
+		}
+
+		.dolphin1 {
+			right: 0;
+		}
+
+		.dolphin1 img, .dolphin0 img {
+			width: 100%;
+		}
+
+		.dolphin0, .arrow_right {
+			-webkit-transform: scaleX(-1);
+  			transform: scaleX(-1);
+		}
+
+		.home {
+			text-align: center;
+			position: absolute;
+			top: 40%;
+			width: 100%;
+			font-size: 1.5vw;
+			letter-spacing: 0.2vw;
+		}
+
+		.ok_button {
+			position: absolute;
+			width: 26%;
+			height: 20%;
+			left: 37%;
+			bottom: 5%;
+			background-color: #ff5bf8;
+			text-align: center;
+			border: 2px solid #ae00ff;
+			border-radius: 5px;
+			cursor: url("cursors/cur_point.cur"), auto;
+		}
+
+		.ok_shadow {
+			width: 100%;
+			height: 100%;
+			border-bottom: 3px solid #b765ff;
+			font-size: 1.8vw;
+			border-right: 3px solid #b765ff;
+			border-top: 3px solid #fdb3ff;
+			border-left: 3px solid #fdb3ff;
+			display: flex;
+			color: #fff;
+		}
+
+		.ok_shadow:active {
+			border: none;
+			background-color: #f332ff;
+		}
+
+		.ok {
+			margin: auto;
+        	text-align: center;
+		}
+
+		audio {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+
+	</style>
+</head>
+<body class="gradient theme">
+	<div class="main">
+		<div class="file_wrapper">
+			<div class="file file_with_padding">
+				<div class="icon dreams_file" onclick="Windows(event, 'dreams_file', 'Exe', 0)"><img src="bun.png" title="Type: Application&#013;Size: 1.23 MB&#013;Date modified: 4/20/20"></div>
+				<div class="file_name dreams_file" onclick="Windows(event, 'dreams_file', 'Exe', 0)">
+					<div><span class="weeb">ドリーム</span><span>.exe</span></div>
+				</div>
+			</div>
+			<div class="file file_with_padding">
+				<div class="icon gif_file" onclick="Windows(event, 'gif_file', 'Gif', 0)"><img src="gif.png" title="Type: GIF image&#013;Size: 888 KB&#013;Date modified: 4/20/20"></div>
+				<div class="file_name gif_file" onclick="Windows(event, 'gif_file', 'Gif', 0)">
+					<div><span class="weeb">美学</span><span>.gif</span></div>
+				</div>
+			</div>
+			<div class="file trashcan">
+				<div class="icon trash_file" onclick="Windows(event, 'trash_file', 'Trash', 0)"><img src="trashcan.png" title="Contains the files and folders that you have deleted."></div>
+				<div class="file_name trash_file weeb" onclick="Windows(event, 'trash_file', 'Trash', 0)">
+				<div>ごみ箱</div>
+				</div>
+			</div>
+		</div>
+		<div class="window exe theme" id="Exe" onmousedown="z_Index('Exe')">
+			<div class="window_header theme">
+				<div id="Exedraggable" class="draggable"></div>
+				<div class="weeb">★ ドリーム</div>
+				<div class="x" onclick="Windows(event, null, 'Exe', 1)">
+					<div class="x2">
+						<div class="x-pixel x-pixel0"></div>
+						<div class="x-pixel x-pixel1"></div>
+						<div class="x-pixel x-pixel2"></div>
+						<div class="x-pixel x-pixel3"></div>
+						<div class="x-pixel x-pixel4"></div>
+					</div>
+				</div>
+				<div class="dash" onclick="Windows(event, null, 'Exe', 1)">
+					<div class="dash2"></div>
+				</div>
+			</div>
+			<div class="window_content">
+				<div class="content_wrapper">
+					<div class="dreams_block theme" id="DreamsBlock" ss-container>
+						<div class="dreams" id="Dream_0">
+							I've been scrolling the internet and stumbled upon many disturbing videos with a lot of violence/gore/rape, but all featuring Knuckles the echidna. I got surprised by such a strange content-spreading tendency and decided to make a little investigation to find out where they came from. It appeared that such videos are called the KnucklesGate and are all aimed at creepy perverted weirdos + created by the same groups of people in order to connect with each other. However, regular people spread these videos just for fun thinking that Knuckles makes them look funny and post-ironic.
+						</div>
+						<div class="dreams" id="Dream_1">
+							I had a very cool dream in my childhood, but it's not transmitted verbally since it's very visual - it's easy to be recreated IRL though. To do so you would need to launch Sonic 3D blast on a very decrepit black and white TV set using the antenna cable so that the whole screen is in white noise, and then turn off the light and play it like that.<br>
+							<br>
+							<img src="gifs/sawnik.gif">
+						</div>
+						<div class="dreams" id="Dream_2">
+							When I was a supersmall post-fetus, I met a cool Squirtle with those Kamina glasses, and we've been hanging out for a while. He was such a nice company that I started thinking it's MY pokemon. But then I encountered some cool bikers and Squirtle went to them. I understood that it was stupid of me to think this way - that was obviously not MY pokemon, and there was nothing I could do about it but to deal with it (I felt miserable though).
+						</div>
+						<div class="dreams" id="Dream_3">
+							It was a strange day. I was walking outside to find the bubblegum, which has been my favourite since I was a child. I guess I was sitting on the swings when I met some special kitty-girl and we started walking and talking a lot, and I suddenly realised that I'm in her house and we seem to live together. She was so adorable, I was sure I have a lot of affection towards her. Seems like I kept staying in her house for days or even weeks, and then I got thrown to the future to the exact moment when she insists on me quitting her life (I thought we'd been living happily together...). From the side perspective, I saw that I'm an adult male cat who has a passion for mixing drugs, and it seems to be the issue. But at the same time, I felt that things could change. Despite losing control over the cat which I appeared to be, I got the power to restart and relive the moment of life, but I could only get back to the moment she insists on me leaving, so I kept leaving again and again until I disappeared completely...
+						</div>
+						<div class="dreams" id="Dream_4">
+							This was not the first time we were walking together, but this day I remember the most. We walked past some village school, which consisted of just one, albeit very large, class. It was a strange place. And then we passed the cableway that leads to the park. There was a bunch of stuffed toys lying under the cableway. Someone told us that people have a tradition of throwing a toy from the window for good luck when getting into the cabin. I looked at all that mess. It was nice, but some toys had their heads lying separately from the body...
+						</div>
+						<div class="dreams" id="Dream_5">
+							I've been chilling in the village house when suddenly someone rang the doorbell. I opened the door and saw two men — the one held a bunch of little toads, another one handed me a little toad covered in a handkerchief saying, "Do you want a toad?" I said, "Oh yes, a toad, please!" and took a toad. The men left, and I went into the house, put a toad on a table and proceeded to admire the toad supremacy.<br>
+							<br>
+							<img class="frog" src="gifs/frog.gif">
+						</div>
+						<div class="dreams" id="Dream_6">
+							I played original Polybius and clearly heard the song "f3nrirs - violent", so I considered it to be the original soundtrack. I thought it's cool that I secretly know it and nobody does.
+						</div>
+						<div class="dreams" id="Dream_7">
+							The city was flooded with water, and where there used to be houses, now a huge sea. A cozy, huggable sea... And many bridges...<br>
+							<br>
+							<img src="gifs/sea.gif" class="sea">
+						</div>
+						<div class="dreams" id="Dream_8">
+							I appeared in the bathroom with some person I know. They were taking a shower while I was brushing my teeth. I blushed a lot. I asked if I could wash them. They said, "Ok fine," neutrally. So I started to wash their hair, being very careful. I wondered if they feel alright. They said that they feel inappropriate. I apologized.
+						</div>
+						<div class="dreams" id="Dream_9">
+							I met a group of girls on the street, we had backpacks, and I knew we are going on an adventure. I wanted to get acquainted with one of them for a long time, and I finally did. She pointed at the house covered with paintings that we were passing by. It appeared that it was painted by her — I was shocked at such a coincidence. She said she's very upset so far because she drew one complicated request recently, and the requester left her without paying any money. We went to some ruins, and our way became too complicated. We needed to jump down from heights, and I was afraid to jump because I could break my legs, but the girls were laughing at me because they could jump easily. We've been traveling for long, and for some reason I thought that we are on an adventure to find and kill a dangerous witch monster that eats people's heads like in Madoka Magica. The monster never appeared though, so I invited the girls to hang out at my place not to be disappointed about the wasted time. While we were at my place, I started talking with one specific girl again. She was a loli obsessed with robots and random technological stuff. I showed her my sketchbook — it was filled with weird and kinky drawings of cute mutilated schoolgirls. I didn't remember drawing so much stuff, but I was sure these were mine. Then she opened her backpack and took some weird-looking robot-like machine out of it. She started touching me with it, and that made me feel super-embarrassed, so I started hiding from her. I covered myself with a blanket. Some other girl passed by and asked what we were doing. I was too embarrassed to answer.
+						</div>
+						<div class="dreams" id="Dream_10">
+							I tended to walk through the markets in search of different cool things, but I always lacked money. When I got my first job, the perspective of it all changed significantly. I finally got a feeling that I could afford anything. That time I went to find another stall filled with retro gaming consoles, and I did, I was in a perfect mood to buy anything my heart desires. But there wasn't much... Most of the consoles that they were selling were broken. I asked the sellers if they had Gameboy Original. They said that they only had Gameboy color, but it was broken, although they had a lot of working Gamecubes for sale. I looked around — a lot of Gamecubes indeed. I started thinking about something of my own, then I turned around and left without buying anything.<br>
+							<br>
+							<img src="gamecube.jpg" class="gamecube">
+						</div>
+						<div class="dreams" id="Dream_11">
+							I was visiting a wicked girl. She mentioned several times that there was a scary room in her house, and I was hiding and asking her not to take me there... We were sitting together, and then I broke something of her things by accident. She got very mad at me. I never went to a scary room.
+						</div>
+						<div class="dreams" id="Dream_12">
+							We were a cool gang of superheroes, and our lair was similar to what the ninja turtles had. I don’t remember exactly who all these people were. One of them resembled Jake in behavior, and generally, he could stretch his arms. One day he brought a decaying corpse of someone unknown, put it on the couch, and convinced us that he knew what he was doing. The corpse was lying motionlessly on the couch for a while. Later, it began to move a little and gradually came to life and started looking fresher. The next day, it became a woman who got out of bed and went somewhere. We followed her around the city — we wondered where she would lead us, so we ended up in a large shopping center. We wandered there with her examining various things; the place was very crowded. Suddenly a guard appeared out of nowhere, and the woman rushed to run through the crowds. The guard yelled something, then ran after her and shot her. It was terrifying. She crumbled and turned into nothing by the time we approached her. We realized that all this time this corpse was sending us a vision of how it died...
+						</div>
+						<div class="dreams" id="Dream_13">
+							The videogame portrays a small fragment of a cozy forest, and you, the player, play the role of a bunny in the first person or 'the first bunny' so to say. One more bunny, your loyal fellow, accompanies you on your adventure. There are a lot of flowers and berries all around, but the game itself is aimless, and all you can do is walk around and admire the cozy plants. Well, in fact, if you desire to find the meaning of existence in this forest, at some point the searching will lead you to the rat, that will say that you would find a meaning behind the door, which is hidden nearby — the rat would lead you there if you need. If you go through this door, you'll get covered with dense darkness. If you decide to go further, the long dark tunnel will end up with a chasm. You will fall and fall for a very long time deep down underground. As a result, you will appear in a dark basement. There would be bookshelves and all sorts of things. Everything there looks extremely realistic. A person looking like a soldier would come into the basement at hearing you fall there. At this point, you can try to hide behind one of the closets or elsewhere, but he will find you anyway. It's important to mention that both you and your bunny companion are anthropomorphic and of the size of a little kid. As soon as the man gets you, your companion would pounce on this man trying to attack him, however, this man has a knife so he stubs the bunny right into his eye. The bunny screams in pain and at this point, I got some kind of memory blackout. I only remember that both you and your companion are taken to some other place and in a while, you both appear sitting at the table, and there are several people sitting around you. They say, "once you have come to our world, now you have to live by our rules." Your partner has an eye patch, and you realize that now he will remain one-eyed for the rest of his bunny life. You ask people, "how to live by your rules?" One of them says, “ohhhh, you need to learn a lot of things, you have a long way to go. First, you need to go to school. It's this way.” They point to the hatch on the floor. You two open it and begin to go down very deep, much farther underground.
+						</div>
+					</div>
+					<div class="scrollbar">
+						<div class="scrollbar_bg theme"></div>
+					</div>
+					<div class="star_panel" id="StarPanel">
+						<div class="starflexx">
+							<div class="star_icon theme" onclick="openDream(event, 'Dream_0', 1)" id="default_star"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_1', 2)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_2', 3)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_3', 4)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_4', 5)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_5', 6)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_6', 7)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_7', 8)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_8', 9)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_9', 10)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_10', 11)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_11', 12)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_12', 13)"><img src="star.png">
+							</div><div class="star_icon theme" onclick="openDream(event, 'Dream_13', 14)"><img src="star.png">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty">
+							</div><div class="star_empty"></div>
+						</div>
+					</div>
+					<div class="page_navigation">
+						<div class="arrows page_arrows"><span onclick="pageNumber(-1)" id="LeftArrow"><img src="arrow.png" class="violet_arrow theme"><img src="arrow1.png" class="light_arrow theme"></span><div class="page_number weeb theme" id="PageNumber"></div><span onclick="pageNumber(1)" id="RightArrow"><img src="arrow.png" class="arrow_right violet_arrow theme"><img src="arrow1.png" class="arrow_right light_arrow theme"></span></div>
+					</div>
+				</div>
+			</div>
+			<div class="window_footer theme">
+				<div class="useless_rectangle"></div>
+				<div class="useless_rectangle2">
+					<div class="weeb" id="dream_num"></div>
+				</div>
+				<div class="resize" id="Exeresize"><img src="footer_icon.png"></div>
+			</div>
+		</div>
+		<div class="window gif theme" id="Gif" onmousedown="z_Index('Gif')">
+			<div class="window_header theme">
+				<div id="Gifdraggable" class="draggable"></div>	
+				<div><span class="weeb">美学</span>.GIF</div>
+				<div class="x" onclick="Windows(event, null, 'Gif', 1)">
+					<div class="x2">
+						<div class="x-pixel x-pixel0"></div>
+						<div class="x-pixel x-pixel1"></div>
+						<div class="x-pixel x-pixel2"></div>
+						<div class="x-pixel x-pixel3"></div>
+						<div class="x-pixel x-pixel4"></div>
+					</div>
+				</div>
+				<div class="dash" onclick="Windows(event, null, 'Gif', 1)">
+					<div class="dash2"></div>
+				</div>
+			</div>
+			<div class="window_content" id="GifContainer">
+				<img src="gifs/gif.gif" class="gif_image default_gif" id="Gif0">
+				<img src="gifs/gif1.gif" class="gif_image" id="Gif1">
+				<img src="gifs/gif2.gif" class="gif_image" id="Gif2">
+				<img src="gifs/gif3.gif" class="gif_image" id="Gif3">
+				<img src="gifs/gif4.gif" class="gif_image" id="Gif4">
+				<img src="gifs/gif5.gif" class="gif_image" id="Gif5">
+				<img src="gifs/gif6.gif" class="gif_image" id="Gif6">
+			</div>
+			<div class="window_footer theme">
+				<div class="arrows footer_arrows"><span onclick="picRandom('Gif', 1)"><img src="arrow.png"></span><span onclick="picRandom('Gif', 0)"><img src="arrow.png" class="arrow_right"></span></div>
+				<div class="useless_rectangle"></div>
+				<div class="useless_rectangle2">
+					<div class="weeb">???</div>
+				</div>
+				<div class="resize" id="Gifresize"><img src="footer_icon.png"></div>
+			</div>
+		</div>
+		<div class="window trash theme" id="Trash" onmousedown="z_Index('Trash')">
+			<div class="window_header theme">
+				<div id="Trashdraggable" class="draggable"></div>	
+				<div><span class="weeb">ごみ箱</span></div>
+				<div class="x" onclick="Windows(event, null, 'Trash', 1)">
+					<div class="x2">
+						<div class="x-pixel x-pixel0"></div>
+						<div class="x-pixel x-pixel1"></div>
+						<div class="x-pixel x-pixel2"></div>
+						<div class="x-pixel x-pixel3"></div>
+						<div class="x-pixel x-pixel4"></div>
+					</div>
+				</div>
+				<div class="dash" onclick="Windows(event, null, 'Trash', 1)">
+					<div class="dash2"></div>
+				</div>
+			</div>
+			<div class="window_content">
+				<div class="file_wrapper">
+					<div class="file txt">
+						<div class="icon txt_file theme" onclick="txtFile(event)"><img src="txt.png"></div>
+						<div class="file_name txt_file theme" onclick="txtFile(event)">
+							<div><span>7061737377<br>6f7264.txt</span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="window_footer theme">
+				<div class="useless_rectangle"></div>
+				<div class="useless_rectangle2">
+					<span class="trash_footer_text" id="TrashFooterText"></span>
+				</div>
+				<div class="resize" id="Trashresize"><img src="footer_icon.png"></div>
+			</div>
+		</div>
+	</div>
+	<div class="footer theme" id="OS_footer"> 
+		<div class="start theme" id="Start_button" onclick="Menu('start')">
+			<div class="weeb">開始</div>
+		</div>
+		<div class="start_menu theme" id="Start_menu">
+			<div class="theme_switch theme" onclick="darkTheme(this)">
+			 	<div class="weeb">暗いテーマ</div>
+			 	<div class="switch">
+			 		<img src="star.png" id="Starswitch">
+			 	</div>
+			</div>
+			<div class="weeb theme about_button" onclick="about(0)">約</div>
+		</div>
+		 <div id="time"></div>
+	</div>
+	<div class="popup_bg about_popup"></div>
+	<div class="popup about_popup">
+		<div class="popup_x" onclick="about(1)">X</div>
+		<div class="popup_wrapper">
+			<div class="dolphin0"><img src="dolphin.gif"></div>
+			<div class="welcome">Welcome to my<br>website!</div>
+			<div class="welcome welcome2">Welcome to my<br>website!</div>
+			<div class="dolphin1"><img src="dolphin.gif"></div>
+			<div class="home">I come here to cry and recreate.<br>You can feel like home too.</div>
+			<div class="ok_button" onclick="about(1)">
+				<div class="ok_shadow">
+				<div class="ok">OK</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<audio src="Blank Banshee - Shut Down-Depression.mp3" controls></audio>
+</body>
+<script>
+
+	var Z_mess = {};
+	Z_mess.maxZ = 1;
+	Z_mess.minZ = 1;
+
+	var doubleclick = {};
+	var picrandom = 0;
+	var page = 1;
+	var pagenum = 1;
+
+	function z_Index(element) {
+		var activeWindow = document.getElementById(element);
+		if (getComputedStyle(document.querySelector(`#${element}`)).zIndex != Z_mess.maxZ) {
+	    	document.getElementById('OS_footer').style.zIndex = Z_mess.maxZ + 2;
+			Z_mess.maxZ++;
+			activeWindow.style.zIndex = Z_mess.maxZ;
+	    }
+	}
+
+
+	(function () {
+    function checkTime(i) {
+        return (i < 10) ? "0" + i : i;
+    }
+
+    function startTime() {
+        var today = new Date(),
+            h = checkTime(today.getHours()),
+            m = checkTime(today.getMinutes());
+        document.getElementById('time').innerHTML = h + ":" + m;
+        t = setTimeout(function () {
+            startTime()
+        }, 500);
+    }
+    startTime();
+	})();
+
+
+	function about(state) {
+		var popup = document.getElementsByClassName("about_popup");
+		var start_button = document.getElementById("Start_button");
+		if (state == 0) {
+			Z_mess.maxZ++;
+			for (i = 0; i < popup.length; i++) {
+	   			popup[i].className += " active";
+				popup[i].style.zIndex = Z_mess.maxZ;
+				document.getElementById("Start_menu").style.display = "none";
+				start_button.className = start_button.className.replace(" active", "");
+	  		}
+		} else {
+			for (i = 0; i < popup.length; i++) {
+	   			popup[i].className = popup[i].className.replace(" active", "");
+	  		}
+		}
+	}
+
+
+	function openDream(evt, dreamName, dreamNumber) {
+	  // Declare all variables
+	  var i, dreams, star_icon, scroll_up;
+
+	  //go to the top of the page
+	  if (!evt.currentTarget.classList.contains("active")) {
+	  	scroll_up = document.getElementsByClassName("ss-content");
+	 	scroll_up[0].scrollTo(0, 0);
+	  }
+
+	  // Get all elements with class="dreams" and hide them
+	  dreams = document.getElementsByClassName("dreams");
+	  for (i = 0; i < dreams.length; i++) {
+	    dreams[i].style.display = "none";
+	  }
+
+	  // Get all elements with class="star_icon" and remove the class "active"
+	  star_icon = document.getElementsByClassName("star_icon");
+	  for (i = 0; i < star_icon.length; i++) {
+	    star_icon[i].className = star_icon[i].className.replace(" active", "");
+	  }
+
+	  // Show the current tab, and add an "active" class to the button that opened the tab
+	  document.getElementById(dreamName).style.display = "block";
+	  if (evt.currentTarget.classList.contains("dreams_file")) {
+	  	document.getElementById("default_star").className += " active";
+	  } else {
+	  	evt.currentTarget.className += " active";
+	  }
+	  document.getElementById('dream_num').innerHTML = "ドリーム#" + dreamNumber;
+	} 
+
+	function clickCheck(elementClass, element) {
+		function clickCheckHandler(evt) {
+		    var clickedElement = elementClass[0], clickedElement2;
+		    if (element == "start") {
+		    	clickedElement2 = document.getElementById("Start_menu");
+		    } else {
+		    	clickedElement2 = elementClass[1];
+		    }
+		    
+		    let targetElement = evt.target; // clicked element
+
+		    do {
+		        if (targetElement == clickedElement || targetElement == clickedElement2) {
+		            // This is a click inside. Do nothing, just return.
+		            //console.log("Clicked inside!");
+		            return;
+		        }
+		        // Go up the DOM
+		        targetElement = targetElement.parentNode;
+		    } while (targetElement);
+
+		    // This is a click outside.
+		    //console.log("Clicked outside!");
+		    for (i = 0; i < elementClass.length; i++) {
+				elementClass[i].className = elementClass[i].className.replace(" active", "");
+			}
+			if (element == "start") {
+				clickedElement2.style.display = "none";
+			}
+			if (element == "txt_file") {
+				document.getElementById('TrashFooterText').innerHTML = "";
+			}
+		    document.removeEventListener("click", clickCheckHandler);
+		}
+
+		document.addEventListener("click", clickCheckHandler);
+	}
+
+
+	function Menu(button) {
+		var startButton = document.getElementsByClassName(button);
+		clickCheck(startButton, button);
+		if (startButton[0].classList.contains("active")) {
+			startButton[0].className = startButton[0].className.replace(" active", "");
+			document.getElementById("Start_menu").style.display = "none";
+		} else {
+			startButton[0].className += " active";
+			document.getElementById("Start_menu").style.display = "block";
+		}
+	}
+
+
+	function Windows(event, file, prog, stat) {
+		var fileClass = document.getElementsByClassName(file);
+		if (stat == 0) {
+			clickCheck(fileClass, file);
+			if (fileClass[0].classList.contains("active")) {
+				doubleclick.x2 = event.clientX;
+				doubleclick.y2 = event.clientY;
+				clickHandler();
+			} else {
+				fileClass[0].className += " active";
+				fileClass[1].className += " active";
+				doubleclick.x = event.clientX;
+				doubleclick.y = event.clientY;
+				//console.log("x/y", doubleclick.x, doubleclick.y);
+			}
+		} else {
+			document.getElementById(prog).style.display = "none";
+			document.getElementById(prog).style.zIndex = Z_mess.minZ;
+			if (prog == "Gif") {
+				picRandom(prog, 0);
+			}
+		}
+
+		function clickHandler() {
+			if (doubleclick.x == doubleclick.x2 && doubleclick.y == doubleclick.y2) {
+				//console.log('doubleclick', file);
+				openWindow(prog, file);
+			} else {
+				doubleclick.x = doubleclick.x2;
+				doubleclick.y = doubleclick.y2;
+				doubleclick.x2 = null;
+				doubleclick.y2 = null;
+			}
+		}
+	}
+
+
+	function openWindow(prog, file) {
+		var scroll_up = document.getElementsByClassName("ss-content");
+		if (getComputedStyle(document.querySelector(`#${prog}`)).display == "none") {
+			WindowDefaults(prog);
+			document.getElementById(prog).style.display = "block";
+			if (file == "dreams_file") {
+				starCheck("StarPanel");
+				openDream(event, 'Dream_0', 1);
+				scroll_up[0].scrollTo(0, 0);
+			}
+		}
+		if (document.getElementById(prog).style.display == "none" || document.getElementById(prog).style.zIndex != Z_mess.maxZ) {
+			document.getElementById('OS_footer').style.zIndex = Z_mess.maxZ + 2;
+			Z_mess.maxZ++;
+			document.getElementById(prog).style.zIndex = Z_mess.maxZ;
+		}
+	}
+
+
+	function WindowDefaults(window_id) {
+		var windoww = document.getElementById(window_id);
+		switch (window_id) {
+		  case "Exe":
+		  	windoww.style.width = window.innerWidth / 2 + 'px';
+		  	windoww.style.left = window.innerWidth / 5 + 'px';
+		  	windoww.style.height = window.innerHeight / 1.8 + 'px';
+		  	windoww.style.top = window.innerHeight / 4.5 + 'px';
+		    break;
+		  case "Gif":
+		  	windoww.style.left = window.innerWidth / 2.5 + 'px';
+		  	windoww.style.height = window.innerHeight / 2 + 'px';
+		  	windoww.style.top = window.innerHeight / 6 + 'px';
+		    break;
+		  case "Trash":
+		  	windoww.style.width = window.innerWidth / 4.5 + 'px';
+		  	windoww.style.left = window.innerWidth / 4 + 'px';
+		  	windoww.style.height = window.innerHeight / 3 + 'px';
+		  	windoww.style.top = window.innerHeight / 2 + 'px';
+		}
+	}
+
+
+	function txtFile(event) {
+		var txt = document.getElementsByClassName("txt_file");
+		if (!event.currentTarget.classList.contains("active")) {
+			txt[0].className += " active";
+			txt[1].className += " active";
+			document.getElementById('TrashFooterText').innerHTML = "Cannot open";
+			clickCheck(txt, "txt_file");
+		}
+	}
+
+
+	function picRandom(prog, stat) {
+		if (stat > 0) {
+			if (picrandom > 0) {
+				picrandom--;
+			} else {
+				picrandom = 6;
+			}
+		} else {
+			if (picrandom < 6) {
+				picrandom++;
+			} else {
+				picrandom = 0;
+			}
+		}
+		
+		picDisplay(prog);
+	}
+
+
+	function picDisplay(prog) {
+		var gifs = document.getElementsByClassName("gif_image");
+		for (i = 0; i < gifs.length; i++) {
+		  gifs[i].style.display = "none";
+		}
+		document.getElementById(prog + picrandom).style.display = "block";
+	}
+
+
+	// Make the element draggable:
+	dragElement(document.getElementById("Gif"));
+	dragElement(document.getElementById("Exe"));
+	dragElement(document.getElementById("Trash"));
+
+	function dragElement(elmnt) {
+	  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0, minX = 0, minY = 0, maxX, maxY;
+	  if (document.getElementById(elmnt.id + "draggable")) {
+	    // if present, the header is where you move the DIV from:
+	    document.getElementById(elmnt.id + "draggable").onmousedown = dragMouseDown;
+	  } else {
+	    // otherwise, move the DIV from anywhere inside the DIV:
+	    elmnt.onmousedown = dragMouseDown;
+	  }
+
+	  function dragMouseDown(e) {
+	    e = e || window.event;
+	    e.preventDefault();
+	    // get the mouse cursor position at startup:
+	    pos3 = e.clientX;
+	    pos4 = e.clientY;
+	    maxX = window.innerWidth - 20; 
+	    maxY = window.innerHeight - 60;
+	    document.onmouseup = closeDragElement;
+	    // call a function whenever the cursor moves:
+	    document.onmousemove = elementDrag;
+	  }
+
+	  function elementDrag(e) {
+	    e = e || window.event;  
+	    e.preventDefault();
+	    // calculate the new cursor position:
+	    pos1 = pos3 - e.clientX;
+	    pos2 = pos4 - e.clientY;
+	    pos3 = e.clientX;
+	    pos4 = e.clientY;
+	    // set the element's new position:
+	    if ((elmnt.offsetTop - pos2) > minY && (elmnt.offsetTop - pos2) < maxY) {
+	    	elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+	    } else if ((elmnt.offsetTop - pos2) <= minY) {
+	    	elmnt.style.top = "0px";
+	    } else {
+	    	elmnt.style.top = maxY + "px";
+	    }
+	    if ((elmnt.offsetLeft - pos1) > minX && (elmnt.offsetLeft - pos1) < maxX) {
+	    	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+	    } else if ((elmnt.offsetLeft - pos1) <= minX) {
+	    	elmnt.style.left = "0px";
+	    } else {
+	    	elmnt.style.left =  maxX + "px";
+	    }	
+	  }
+
+	  function closeDragElement() {
+	    // stop moving when mouse button is released:
+	    document.onmouseup = null;
+	    document.onmousemove = null;
+	  }
+	}
+
+	// Resize the window:
+	resizeWindow(document.getElementById("Gif"));
+	resizeWindow(document.getElementById("Exe"));
+	resizeWindow(document.getElementById("Trash"));
+
+	function resizeWindow(elmnt) {
+		var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0, maxX, maxY;
+		var audio = document.getElementsByTagName("audio")[0];
+		document.getElementById(elmnt.id + "resize").onmousedown = resizeMouseDown;
+
+		function resizeMouseDown(e) {
+	    e = e || window.event;
+	    e.preventDefault();
+	    // get the mouse cursor position at startup:
+	    pos3 = e.clientX;
+	    pos4 = e.clientY;
+	    maxX = window.innerWidth - parseInt(getComputedStyle(document.querySelector(`#${elmnt.id}`)).left); 
+	    maxY = window.innerHeight - parseInt(getComputedStyle(document.querySelector(`#${elmnt.id}`)).top) - 40;
+	    document.onmouseup = closeResizeElement;
+	    audio.onmousemove = stopResize;
+	    // call a function whenever the cursor moves:
+	    document.onmousemove = elementResize;
+	  }
+
+	  function elementResize(e) {
+	    e = e || window.event;
+	    e.preventDefault();
+	    // calculate the new cursor position:
+	    pos1 = pos3 - e.clientX;
+	    pos2 = pos4 - e.clientY;
+	    pos3 = e.clientX;
+	    pos4 = e.clientY;
+	    // set the element's new size:
+	    if ((elmnt.offsetHeight - pos2) < maxY) {
+	    	elmnt.style.height = (elmnt.offsetHeight - pos2) + "px";
+	    } else {
+	    	elmnt.style.height = maxY + "px";
+	    }
+	    if (elmnt.id != "Gif") {
+	    	if (elmnt.offsetWidth - pos1 < maxX) {
+	    		elmnt.style.width = (elmnt.offsetWidth - pos1) + "px";
+	    	} else {
+	    		elmnt.style.width = maxX + "px";
+	    	}
+	    }
+	  }
+
+	  function closeResizeElement() {
+	    // stop resizing when mouse button is released:
+	    	stopResize();
+	    if (elmnt.id == "Exe") {
+	    	document.getElementById("DreamsBlock").click();
+	    	starCheck("StarPanel");
+	    }
+	  }
+
+	  function stopResize() {
+		  document.onmouseup = null;
+		  document.onmousemove = null;
+	  }
+	}
+
+
+	function darkTheme(themeSwitch) {
+		var dark_theme
+		dark_theme = document.getElementsByClassName("theme");
+		if (themeSwitch.classList.contains("active")) {
+		  	for (i = 0; i < dark_theme.length; i++) {
+		    	dark_theme[i].className = dark_theme[i].className.replace(" dark", "");
+		    }
+			themeSwitch.className = themeSwitch.className.replace(" active", "");
+			switchMove(18, -8, 'off');
+		} else {
+			for (i = 0; i < dark_theme.length; i++) {
+		    	dark_theme[i].className += " dark";
+		    }
+			themeSwitch.className += " active";
+			switchMove(-8, 18, 'on');
+		}
+
+		function switchMove(start, stop, state) {
+		  var elem = document.getElementById("Starswitch");
+		  var pos = start;
+		  var id = setInterval(frame, 5);
+		  function frame() {
+		    if (pos == stop) {
+		      	clearInterval(id);
+		    } else {
+		    	if (state == 'on') {
+		    		pos++;
+		      		elem.style.left = pos + 'px';
+		    	} else if (state == 'off') {
+		    		pos--;
+		      		elem.style.left = pos + 'px';
+		    	}    	
+		    }
+		  }
+		}
+	}
+
+
+	function kCode(cb) {
+	  var input = '';
+	  var key = '38384040373937396665';
+	  document.addEventListener('keydown', function (e) {
+	    input += ("" + e.keyCode);
+	    if (input === key) {
+	      return cb();
+	    }
+	    if (!key.indexOf(input)) return;
+	    input = ("" + e.keyCode);
+	  });
+	}
+
+	kCode(function () {
+		var gif = document.getElementById("Gif");
+		picrandom = 7;
+		WindowDefaults("Gif");
+		gif.style.display = "block";
+		gif.style.zIndex = gif.style.zIndex || "auto";
+		z_Index("Gif");
+		var img = document.createElement("img");
+	    img.src = "dokidoki.gif";
+	    img.className = "gif_image";
+	    img.id = "Gif7";
+	    var src = document.getElementById("GifContainer");
+	    src.appendChild(img);
+	    picDisplay("Gif");
+	});
+
+
+	function starCheck(elmnt) {
+		var width, height, x, y, stars_per_page, star_icons, maxX = 87, maxY = 129;
+		star_icons = document.getElementsByClassName("star_icon");
+		width = parseInt(getComputedStyle(document.querySelector(`#${elmnt}`)).width);
+		height = parseInt(getComputedStyle(document.querySelector(`#${elmnt}`)).height);
+		x = starCount(width, 1, maxX);
+		y = starCount(height, 2, maxY);
+		stars_per_page = x * y;
+		//console.log(x, y, stars_per_page);
+		removePages();
+		pagination();
+		pageNumber(0);
+
+		function starCount(length, num, max) {
+			do {
+				max += 44;
+				num++
+			} while (length > max);
+		return num;
+		}
+
+		function removePages() {
+			do {
+				for (i = 0; i < star_icons.length; i++) {
+		    		star_icons[i].className = star_icons[i].className.replace(` page${page}`, "");
+		    	}
+				page--;
+			} while (page > 0);
+		}
+
+		function pagination() {
+			var pageclass, stars;
+			stars = stars_per_page;
+			page = 1;
+			for (i = 0; i < star_icons.length; i++) {
+				if (i > (stars - 1)) {
+					stars += stars_per_page;
+					page++;
+				}
+				pageclass = " page" + page;
+		    	star_icons[i].className += pageclass;
+		    }
+		    //console.log(` page${page}`, page, stars, stars_per_page);
+		}
+	}
+
+	function pageNumber(direction) {
+		var current_page, star_icons, pageclass, page_navigation;
+		page_navigation = document.getElementsByClassName("page_navigation");
+		pagenum += direction;
+		if (pagenum < 1) {
+			pagenum = 1;
+		}
+		if (pagenum > page) {
+			pagenum = page;
+		}
+		star_icons = document.getElementsByClassName("star_icon");
+		pageclass = "page" + pagenum;
+		current_page = document.getElementsByClassName(pageclass);
+		for (i = 0; i < star_icons.length; i++) {
+			star_icons[i].style.display = "none";
+		}
+		for (x = 0; x < current_page.length; x++) {
+			current_page[x].style.display = "block";
+		}
+		document.getElementById('PageNumber').innerHTML = pagenum + "頁";
+		if (page == 1) {
+			page_navigation[0].className = page_navigation[0].className.replace(" active", "");
+		} else if (!page_navigation[0].classList.contains("active")) {
+			page_navigation[0].className += " active";
+		}
+		if (pagenum < 2) {
+			document.getElementById('LeftArrow').style.visibility = "hidden";
+		} else {
+			document.getElementById('LeftArrow').style.visibility = "inherit";
+		}
+		if (pagenum == page) {
+			document.getElementById('RightArrow').style.visibility = "hidden";
+		} else {
+			document.getElementById('RightArrow').style.visibility = "inherit";
+		}
+	}
+</script>
+</html>

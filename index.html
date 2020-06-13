@@ -21,21 +21,30 @@
 			cursor: url("cat1.png"), auto;
 		}
 
+		li {
+			display: inline-block;
+		}
+
 		li:hover::after {
 			content: '←';
 			padding-left: 8px;
 		}
 
-		html {
+		li:hover {
+			color: #fed6ff;
+		}
+
+		html, body, .wrapper {
 			cursor: url("cat.png"), auto;
-			color: #fff;
 			height: 100%;
-			background: linear-gradient(to top, #7bbcff, #ff96f6);
-			background-size: cover;
+			position: relative;
+			overflow: hidden;
 		}
 		
 		.wrapper {
-			height: 100%;
+			color: #fff;
+			background: linear-gradient(to top, #7bbcff, #ff96f6);
+			background-size: cover;
 		}
 
 		h1 {
@@ -47,48 +56,60 @@
 			font-size: 2em;
 		}
 
-		.main {
-			padding-top: 50px;
-			padding-left: 100px;
-			padding-bottom: 75px;
-			min-height: 100%;
+		.main-wrapper {
+			height: calc(100% - 200px);
+			margin: 0px 50px;
+			display: flex;
 		}
 
-		.above {
-			height: 200px;
+		.main {
+			margin: auto auto;
+			height: 380px;
+			width: 550px;
+		}
+
+		.header {
+			height: 100px;
 			background-image: url('stars.gif');
 		}
 
-		.below {
+		.footer {
 			position: absolute;
-			left: 0;
 			bottom: 0;
 			width: 100%;
-			height: 200px;
+			height: 100px;
 			background-image: url('stars.gif');
 		}
 
 		ul {
 			line-height: 40px;
 			padding-bottom: 20px;
+			list-style: none;
+		    padding-left: 10px;
+		}
+
+		.weeb {
+			font-size: 22px;
 		}
 
 	</style>
 </head>
 <body>
 	<div class="wrapper">
-		<div class="above"></div>
-		<main class="main">
-			<h1>Content:</h1>
-			<div class="info">
-				<ul>
-					<a href="new kids on the block/index.html"><li>Some random site</li></a>
-					<a href="dino game/dino.html"><li>Dino game</li></a>
-				</ul>
-				<div class="soon">COMING SOON: more badly written sites.</div>
-			</div>
-		</main>
+		<div class="header"></div>
+		<div class="main-wrapper">
+			<main class="main">
+				<h1>Content:</h1>
+				<div class="info">
+					<ul>
+						<a href="OS/desktop.html"><li><span class="weeb">ドリーム</span>OS</li></a><br>
+						<a href="dino game/dino.html"><li>Dino game</li></a>
+					</ul>
+					<div class="soon">COMING SOON: more useless websites</div>
+				</div>
+			</main>
+		</div>
 	</div>
-	<div class="below"></div>
+	<div class="footer"></div>
 </body>
 </html>

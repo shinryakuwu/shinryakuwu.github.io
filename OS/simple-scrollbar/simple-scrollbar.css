@@ -1,0 +1,55 @@
+.ss-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  float: left;
+}
+
+.ss-content {
+  height: 100%;
+  width: calc(100% + 18px);
+  padding: 0 0 0 0;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.ss-content.rtl {
+  width: calc(100% + 18px);
+  right: auto;
+}
+
+.ss-scroll {
+  position: absolute;
+  background-color: #fed6ff;
+  border: 2px solid #ae00ff;
+  width: 15px;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+  cursor: url("../cursors/cur_point.cur"), auto;
+}
+
+.ss-hidden {
+  height: 100%;
+}
+
+.ss-container:hover .ss-scroll,
+.ss-container:active .ss-scroll {
+  background-color: #0ff;
+}
+
+.ss-container:hover .ss-scroll.dark,
+.ss-container:active .ss-scroll.dark {
+  background-color: #00e5ff;
+}
+
+.ss-grabbed {
+  -o-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
