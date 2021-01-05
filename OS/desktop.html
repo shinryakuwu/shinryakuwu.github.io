@@ -11,10 +11,12 @@
 			src: url(Tahoma.ttf);
 		}
 
+		/*
 		@font-face {
  			font-family: Meiryo;
 			src: url(Meiryo.ttf);
 		}
+		*/
 
 		@font-face {
 			font-family: Oxygene;
@@ -154,7 +156,7 @@
 		}
 
 		.weeb {
-			font-family: Meiryo;
+			/*font-family: Meiryo; too heavy :( */
 		}
 
 		.file_wrapper {
@@ -326,13 +328,20 @@
 
 		.useless_rectangle2 div {
 			position: absolute;
-			bottom: -3px;
 			right: 3px;
+		}
+
+		.useless_rectangle2 div.weeb {
+			top: -1px;
+		}
+
+		.gif_footer_text {
+			bottom: -1px;
 		}
 
 		.trash_footer_text {
 			position: absolute;
-			bottom: -2px;
+			top: -2px;
 			right: 3px;
 			font-size: 10px;
 		}
@@ -736,7 +745,7 @@
 						<div class="dreams" id="Dream_1">
 							I had a very cool dream in my childhood, but it's not transmitted verbally since it's very visual - it's easy to be recreated IRL though. To do so you would need to launch Sonic 3D blast on a very decrepit black and white TV set using the antenna cable so that the whole screen is in white noise, and then turn off the light and play it like that.<br>
 							<br>
-							<img src="gifs/sawnik.gif">
+							<img src="gifs/sawnik.gif" loading="lazy">
 						</div>
 						<div class="dreams" id="Dream_2">
 							When I was a supersmall post-fetus, I met a cool Squirtle with those Kamina glasses, and we've been hanging out for a while. He was such a nice company that I started thinking it's MY pokemon. But then I encountered some cool bikers and Squirtle went to them. I understood that it was stupid of me to think this way - that was obviously not MY pokemon, and there was nothing I could do about it but to deal with it (I felt miserable though).
@@ -750,7 +759,7 @@
 						<div class="dreams" id="Dream_5">
 							I've been chilling in the village house when suddenly someone rang the doorbell. I opened the door and saw two men — the one held a bunch of little toads, another one handed me a little toad covered in a handkerchief saying, "Do you want a toad?" I said, "Oh yes, a toad, please!" and took a toad. The men left, and I went into the house, put a toad on a table and proceeded to admire the toad supremacy.<br>
 							<br>
-							<img class="frog" src="gifs/frog.gif">
+							<img class="frog" src="gifs/frog.gif" loading="lazy">
 						</div>
 						<div class="dreams" id="Dream_6">
 							I played original Polybius and clearly heard the song "f3nrirs - violent", so I considered it to be the original soundtrack. I thought it's cool that I secretly know it and nobody does.
@@ -758,7 +767,7 @@
 						<div class="dreams" id="Dream_7">
 							The city was flooded with water, and where there used to be houses, now a huge sea. A cozy, huggable sea... And many bridges...<br>
 							<br>
-							<img src="gifs/sea.gif" class="sea">
+							<img src="gifs/sea.gif" class="sea" loading="lazy">
 						</div>
 						<div class="dreams" id="Dream_8">
 							I appeared in the bathroom with some person I know. They were taking a shower while I was brushing my teeth. I blushed a lot. I asked if I could wash them. They said, "Ok fine," neutrally. So I started to wash their hair, being very careful. I wondered if they feel alright. They said that they feel inappropriate. I apologized.
@@ -769,7 +778,7 @@
 						<div class="dreams" id="Dream_10">
 							I tended to walk through the markets in search of different cool things, but I always lacked money. When I got my first job, the perspective of it all changed significantly. I finally got a feeling that I could afford anything. That time I went to find another stall filled with retro gaming consoles, and I did, I was in a perfect mood to buy anything my heart desires. But there wasn't much... Most of the consoles that they were selling were broken. I asked the sellers if they had Gameboy Original. They said that they only had Gameboy color, but it was broken, although they had a lot of working Gamecubes for sale. I looked around — a lot of Gamecubes indeed. I started thinking about something of my own, then I turned around and left without buying anything.<br>
 							<br>
-							<img src="gamecube.jpg" class="gamecube">
+							<img src="gamecube.jpg" class="gamecube" loading="lazy">
 						</div>
 						<div class="dreams" id="Dream_11">
 							I was visiting a wicked girl. She mentioned several times that there was a scary room in her house, and I was hiding and asking her not to take me there... We were sitting together, and then I broke something of her things by accident. She got very mad at me. I never went to a scary room.
@@ -847,19 +856,19 @@
 				</div>
 			</div>
 			<div class="window_content" id="GifContainer">
-				<img src="gifs/gif.gif" class="gif_image default_gif" id="Gif0">
-				<img src="gifs/gif1.gif" class="gif_image" id="Gif1">
-				<img src="gifs/gif2.gif" class="gif_image" id="Gif2">
-				<img src="gifs/gif3.gif" class="gif_image" id="Gif3">
-				<img src="gifs/gif4.gif" class="gif_image" id="Gif4">
-				<img src="gifs/gif5.gif" class="gif_image" id="Gif5">
-				<img src="gifs/gif6.gif" class="gif_image" id="Gif6">
+				<img src="gifs/gif.gif" loading="lazy" class="gif_image default_gif" id="Gif0">
+				<img src="gifs/gif1.gif" loading="lazy" class="gif_image" id="Gif1">
+				<img src="gifs/gif2.gif" loading="lazy" class="gif_image" id="Gif2">
+				<img src="gifs/gif3.gif" loading="lazy" class="gif_image" id="Gif3">
+				<img src="gifs/gif4.gif" loading="lazy" class="gif_image" id="Gif4">
+				<img src="gifs/gif5.gif" loading="lazy" class="gif_image" id="Gif5">
+				<img src="gifs/gif6.gif" loading="lazy" class="gif_image" id="Gif6">
 			</div>
 			<div class="window_footer theme">
 				<div class="arrows footer_arrows"><span onclick="picRandom('Gif', 1)"><img src="arrow.png"></span><span onclick="picRandom('Gif', 0)"><img src="arrow.png" class="arrow_right"></span></div>
 				<div class="useless_rectangle"></div>
 				<div class="useless_rectangle2">
-					<div class="weeb">???</div>
+					<div class="gif_footer_text">???</div>
 				</div>
 				<div class="resize" id="Gifresize"><img src="footer_icon.png"></div>
 			</div>
@@ -919,10 +928,10 @@
 	<div class="popup about_popup">
 		<div class="popup_x" onclick="about(1)">X</div>
 		<div class="popup_wrapper">
-			<div class="dolphin0"><img src="dolphin.gif"></div>
+			<div class="dolphin0"><img src="dolphin.gif" loading="lazy"></div>
 			<div class="welcome">Welcome to my<br>website!</div>
 			<div class="welcome welcome2">Welcome to my<br>website!</div>
-			<div class="dolphin1"><img src="dolphin.gif"></div>
+			<div class="dolphin1"><img src="dolphin.gif" loading="lazy"></div>
 			<div class="home">I come here to cry and recreate.<br>You can feel like home too.</div>
 			<div class="ok_button" onclick="about(1)">
 				<div class="ok_shadow">
