@@ -81,32 +81,15 @@
 
     var self = this;
 
-    document.addEventListener("click", this.moveBar.bind(this));
+    document.addEventListener('transform_scrollbar', this.moveBar.bind(this));
 
     this.target.classList.add('ss-container');
-
-    //additionalListener(this);
 
     var css = w.getComputedStyle(el);
   	if (css['height'] === '0px' && css['max-height'] !== '0px') {
     	el.style.height = css['max-height'];
     }
   }
-
-  function additionalListener(elmnt) {
-    document.addEventListener("click", function(event){
-      let targetElement = event.target;
-      do {
-          if (targetElement.classList.contains("star_icon") || targetElement.classList.contains("dreams_file") || targetElement.id == "Exeresize") {
-              console.log("Scrollbar changed", elmnt);
-              elmnt.moveBar.bind(elmnt);
-              return;
-          }
-          targetElement = targetElement.parentNode;
-      } while (targetElement && targetElement.classList != null);
-    });
-  }
-
 
   ss.prototype = {
     moveBar: function(e) {
@@ -128,7 +111,7 @@
           _this.bar.style.cssText = 'height:100%; right:-21px';
         } else {
           _this.bar.classList.remove('ss-hidden')
-          _this.bar.style.cssText = 'height:' + Math.max(_this.scrollRatio * 100, 10) + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:-21px';
+          _this.bar.style.cssText = 'height:' + Math.max(_this.scrollRatio * 100, 5) + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:-21px';
         }
       });
     }

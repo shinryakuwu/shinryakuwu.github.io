@@ -3,8 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Webpage</title>
+	<script src="simple-scrollbar/simple-scrollbar.js" async></script>
+	<script src="node_modules/webcomponents.js/webcomponents.js"></script>
+	<link rel="import" href="node_modules/x-nes/dist/x-nes.html">
 	<link rel="stylesheet" href="simple-scrollbar/simple-scrollbar.css">
-	<script src="simple-scrollbar/simple-scrollbar.js"></script>
 	<style>
 		@font-face {
  			font-family: Tahoma;
@@ -47,6 +49,17 @@
 			background: #f2a3ff;
 		}
 
+		#LoadingScreen {
+			height: 100%;
+			width: 100%;
+			position: fixed;
+			background-color: #e164ff;
+			z-index: 1;
+			color: #fff;
+			padding: 50px;
+			font-size: 18px;
+		}
+
 		.gradient {
 			background: linear-gradient(to top, #fda2ff, #89beff);
 			position: relative;
@@ -86,6 +99,10 @@
 
 		.dreams_block.dark, .scrollbar_bg.dark {
 			border-color: #e164ff;
+		}
+
+		.nes_not_supported.dark {
+			color: #fed6ff;
 		}
 
 		.start {
@@ -158,7 +175,7 @@
 		}
 
 		.file_wrapper {
-			max-width: 120px;
+			max-width: 125px;
 		}
 
 		.file {
@@ -237,6 +254,12 @@
 			min-width: 120px;
 		}
 
+		.nes {
+			display: none;
+			height: 270px;
+			width: 260px;
+		}
+
 		.trash {
 			display: none;
 			min-height: 185px;
@@ -281,7 +304,7 @@
 		.window_footer {
 			position: absolute;
 			bottom: 0;
-			height: 20px;
+			height: 23px;
 			border-top: 2px solid #ae00ff;
 			border-bottom-right-radius: 3px;
 			border-bottom-left-radius: 3px;
@@ -311,7 +334,7 @@
 			position: relative;
 			border: 2px solid #ae00ff;
 			margin: 2px;
-			height: 14px;
+			height: 17px;
 			width: 120px;
 			font-size: 9px;
 			overflow: hidden;
@@ -330,17 +353,9 @@
 			right: 3px;
 		}
 
-		.useless_rectangle2 div.weeb {
-			top: -1px;
-		}
-
-		.gif_footer_text {
-			bottom: -1px;
-		}
-
-		.trash_footer_text {
+		.trash_footer_text, .nes_footer_text {
 			position: absolute;
-			top: -2px;
+			bottom: 0px;
 			right: 3px;
 			font-size: 10px;
 		}
@@ -350,7 +365,7 @@
 		}
 
 		.window_footer img {
-			margin: 0px 2px 1px 3px;
+			margin: 7px 2px 0px 3px;
 		}
 
 		.x, .dash {
@@ -563,6 +578,10 @@
 			margin: 10px;
 		}
 
+		.nes_not_supported {
+			padding: 10px;
+		}
+
 		.popup_bg {
 			background-image: url('fish.gif');
 			height: 100%;
@@ -697,6 +716,7 @@
 	</style>
 </head>
 <body class="gradient theme">
+	<div id="LoadingScreen"><span id="LoadingScreenText"></span><span id="LoadingScreenSpinner"></span></div>
 	<div class="main">
 		<div class="file_wrapper">
 			<div class="file file_with_padding">
@@ -709,6 +729,12 @@
 				<div class="icon gif_file" onclick="Windows(event, 'gif_file', 'Gif', 0)"><img src="gif.png" title="Type: GIF image&#013;Size: 888 KB&#013;Date modified: 4/20/20"></div>
 				<div class="file_name gif_file" onclick="Windows(event, 'gif_file', 'Gif', 0)">
 					<div><span class="weeb">美学</span><span>.gif</span></div>
+				</div>
+			</div>
+			<div class="file file_with_padding">
+				<div class="icon nes_file" onclick="Windows(event, 'nes_file', 'Nes', 0)"><img src="ghost.png" title="Type: Application&#013;Size: 5 KB&#013;Date modified: 4/20/20"></div>
+				<div class="file_name nes_file" onclick="Windows(event, 'nes_file', 'Nes', 0)">
+					<div><span class="weeb">ファミコン</span><span>.exe</span></div>
 				</div>
 			</div>
 			<div class="file trashcan">
@@ -744,7 +770,7 @@
 						<div class="dreams" id="Dream_1">
 							I had a very cool dream in my childhood, but it's not transmitted verbally since it's very visual - it's easy to be recreated IRL though. To do so you would need to launch Sonic 3D blast on a very decrepit black and white TV set using the antenna cable so that the whole screen is in white noise, and then turn off the light and play it like that.<br>
 							<br>
-							<img src="gifs/sawnik.gif" loading="lazy">
+							<img src="gifs/sawnik.gif">
 						</div>
 						<div class="dreams" id="Dream_2">
 							When I was a supersmall post-fetus, I met a cool Squirtle with those Kamina glasses, and we've been hanging out for a while. He was such a nice company that I started thinking it's MY pokemon. But then I encountered some cool bikers and Squirtle went to them. I understood that it was stupid of me to think this way - that was obviously not MY pokemon, and there was nothing I could do about it but to deal with it (I felt miserable though).
@@ -758,7 +784,7 @@
 						<div class="dreams" id="Dream_5">
 							I've been chilling in the village house when suddenly someone rang the doorbell. I opened the door and saw two men — the one held a bunch of little toads, another one handed me a little toad covered in a handkerchief saying, "Do you want a toad?" I said, "Oh yes, a toad, please!" and took a toad. The men left, and I went into the house, put a toad on a table and proceeded to admire the toad supremacy.<br>
 							<br>
-							<img class="frog" src="gifs/frog.gif" loading="lazy">
+							<img class="frog" src="gifs/frog.gif">
 						</div>
 						<div class="dreams" id="Dream_6">
 							I played original Polybius and clearly heard the song "f3nrirs - violent", so I considered it to be the original soundtrack. I thought it's cool that I secretly know it and nobody does.
@@ -766,7 +792,7 @@
 						<div class="dreams" id="Dream_7">
 							The city was flooded with water, and where there used to be houses, now a huge sea. A cozy, huggable sea... And many bridges...<br>
 							<br>
-							<img src="gifs/sea.gif" class="sea" loading="lazy">
+							<img src="gifs/sea.gif" class="sea">
 						</div>
 						<div class="dreams" id="Dream_8">
 							I appeared in the bathroom with some person I know. They were taking a shower while I was brushing my teeth. I blushed a lot. I asked if I could wash them. They said, "Ok fine," neutrally. So I started to wash their hair, being very careful. I wondered if they feel alright. They said that they feel inappropriate. I apologized.
@@ -777,7 +803,7 @@
 						<div class="dreams" id="Dream_10">
 							I tended to walk through the markets in search of different cool things, but I always lacked money. When I got my first job, the perspective of it all changed significantly. I finally got a feeling that I could afford anything. That time I went to find another stall filled with retro gaming consoles, and I did, I was in a perfect mood to buy anything my heart desires. But there wasn't much... Most of the consoles that they were selling were broken. I asked the sellers if they had Gameboy Original. They said that they only had Gameboy color, but it was broken, although they had a lot of working Gamecubes for sale. I looked around — a lot of Gamecubes indeed. I started thinking about something of my own, then I turned around and left without buying anything.<br>
 							<br>
-							<img src="gamecube.jpg" class="gamecube" loading="lazy">
+							<img src="gamecube.jpg" class="gamecube">
 						</div>
 						<div class="dreams" id="Dream_11">
 							I was visiting a wicked girl. She mentioned several times that there was a scary room in her house, and I was hiding and asking her not to take me there... We were sitting together, and then I broke something of her things by accident. She got very mad at me. I never went to a scary room.
@@ -855,13 +881,13 @@
 				</div>
 			</div>
 			<div class="window_content" id="GifContainer">
-				<img src="gifs/gif.gif" loading="lazy" class="gif_image default_gif" id="Gif0">
-				<img src="gifs/gif1.gif" loading="lazy" class="gif_image" id="Gif1">
-				<img src="gifs/gif2.gif" loading="lazy" class="gif_image" id="Gif2">
-				<img src="gifs/gif3.gif" loading="lazy" class="gif_image" id="Gif3">
-				<img src="gifs/gif4.gif" loading="lazy" class="gif_image" id="Gif4">
-				<img src="gifs/gif5.gif" loading="lazy" class="gif_image" id="Gif5">
-				<img src="gifs/gif6.gif" loading="lazy" class="gif_image" id="Gif6">
+				<img src="gifs/gif.gif" class="gif_image default_gif" id="Gif0">
+				<img src="gifs/gif1.gif" class="gif_image" id="Gif1">
+				<img src="gifs/gif2.gif" class="gif_image" id="Gif2">
+				<img src="gifs/gif3.gif" class="gif_image" id="Gif3">
+				<img src="gifs/gif4.gif" class="gif_image" id="Gif4">
+				<img src="gifs/gif5.gif" class="gif_image" id="Gif5">
+				<img src="gifs/gif6.gif" class="gif_image" id="Gif6">
 			</div>
 			<div class="window_footer theme">
 				<div class="arrows footer_arrows"><span onclick="picRandom('Gif', 1)"><img src="arrow.png"></span><span onclick="picRandom('Gif', 0)"><img src="arrow.png" class="arrow_right"></span></div>
@@ -870,6 +896,38 @@
 					<div class="gif_footer_text">???</div>
 				</div>
 				<div class="resize" id="Gifresize"><img src="footer_icon.png"></div>
+			</div>
+		</div>
+		<div class="window nes theme" id="Nes" onmousedown="z_Index('Nes')">
+			<div class="window_header theme">
+				<div id="Nesdraggable" class="draggable"></div>
+				<div><span class="weeb">ファミコン</span></div>
+				<div class="x" onclick="Windows(event, null, 'Nes', 1)">
+					<div class="x2">
+						<div class="x-pixel x-pixel0"></div>
+						<div class="x-pixel x-pixel1"></div>
+						<div class="x-pixel x-pixel2"></div>
+						<div class="x-pixel x-pixel3"></div>
+						<div class="x-pixel x-pixel4"></div>
+					</div>
+				</div>
+				<div class="dash" onclick="Windows(event, null, 'Nes', 1)">
+					<div class="dash2"></div>
+				</div>
+			</div>
+			<div class="window_content">
+				<x-nes src="http://raw.githubusercontent.com/shinryakuwu/-the-summoner/dev/ca(n)t redo everything.nes">
+					<div class="nes_not_supported theme">
+						<span class="weeb">申し訳ありませんが、お使いのブラウザは</span>&lt;x-nes&gt;<span class="weeb">をサポートしていません。</span>
+					</div>
+				</x-nes>
+			</div>
+			<div class="window_footer theme">
+				<div class="useless_rectangle"></div>
+				<div class="useless_rectangle2">
+					<span class="nes_footer_text">← ↑ → ↓ /X/Z/Shift/↵</span>
+				</div>
+				<div class="resize" id="Nesresize"><img src="footer_icon.png"></div>
 			</div>
 		</div>
 		<div class="window trash theme" id="Trash" onmousedown="z_Index('Trash')">
@@ -927,10 +985,10 @@
 	<div class="popup about_popup">
 		<div class="popup_x" onclick="about(1)">X</div>
 		<div class="popup_wrapper">
-			<div class="dolphin0"><img src="dolphin.gif" loading="lazy"></div>
+			<div class="dolphin0"><img src="dolphin.gif"></div>
 			<div class="welcome">Welcome to my<br>website!</div>
 			<div class="welcome welcome2">Welcome to my<br>website!</div>
-			<div class="dolphin1"><img src="dolphin.gif" loading="lazy"></div>
+			<div class="dolphin1"><img src="dolphin.gif"></div>
 			<div class="home">I come here to cry and recreate.<br>You can feel like home too.</div>
 			<div class="ok_button" onclick="about(1)">
 				<div class="ok_shadow">
@@ -947,10 +1005,68 @@
 	Z_mess.maxZ = 1;
 	Z_mess.minZ = 1;
 
+	var Loading = {};
+	Loading.screen = true;
+	Loading.spinning = ['—', '\\', '|', '/']
+	Loading.delay = [400, 400, 600, 50, 1000, 100, 150]
+	Loading.counter = 0
+	Loading.text = [
+		'ドリームBIOS ver 7.0.71<br>',
+		'Memory testing: 262144K OK<br>',
+		'Initializing USB controllers ... ',
+		'Done<br>',
+		'Auto-detecting SATA ... ',
+		'IDE hard disk<br>',
+		'Starting virtual machine '
+	]
+
 	var doubleclick = {};
 	var picrandom = 0;
 	var page = 1;
 	var pagenum = 1;
+	const transform_scrollbar = new Event('transform_scrollbar');
+
+	
+	var initialization = function() {
+		document.getElementById('LoadingScreenText').innerHTML += Loading.text[Loading.counter];
+	    Loading.counter++;
+	    if (Loading.counter < 7) {
+	    	setTimeout(initialization, Loading.delay[Loading.counter]);
+	    } else {
+	    	Loading.counter = 0;
+	    	
+	    	loaded(function() {
+			  setVisible('#LoadingScreen', false);
+			});
+	    }
+	}
+
+	setTimeout(initialization, 200);
+
+	function loaded(callback) {
+		var loadingSpinner = window.setInterval(function() {
+			document.getElementById('LoadingScreenSpinner').innerHTML = Loading.spinning[Loading.counter];
+			if (Loading.counter < 3) {
+		    	Loading.counter++;
+		    } else {
+		      	Loading.counter = 0;
+		    }
+	    }, 150);
+		var intervalId = window.setInterval(function() {
+		    if (document.getElementsByTagName('body')[0] !== undefined) {
+		      window.clearInterval(loadingSpinner);
+		      window.clearInterval(intervalId);
+		      document.getElementById('LoadingScreenSpinner').innerHTML = Loading.spinning[Loading.counter];
+		      callback.call(this);
+		    }
+		}, 3000);
+	}
+
+	function setVisible(selector, visible) {
+	  document.querySelector(selector).style.display = visible ? 'block' : 'none';
+	}
+
+
 
 	function z_Index(element) {
 		var activeWindow = document.getElementById(element);
@@ -1029,6 +1145,7 @@
 	  	evt.currentTarget.className += " active";
 	  }
 	  document.getElementById('dream_num').innerHTML = "ドリーム#" + dreamNumber;
+	  document.dispatchEvent(transform_scrollbar);
 	} 
 
 	function clickCheck(elementClass, element) {
@@ -1110,6 +1227,9 @@
 			if (doubleclick.x == doubleclick.x2 && doubleclick.y == doubleclick.y2) {
 				//console.log('doubleclick', file);
 				openWindow(prog, file);
+				if (prog == "Exe") {
+					document.dispatchEvent(transform_scrollbar);
+				}
 			} else {
 				doubleclick.x = doubleclick.x2;
 				doubleclick.y = doubleclick.y2;
@@ -1152,6 +1272,10 @@
 		  	windoww.style.left = window.innerWidth / 2.5 + 'px';
 		  	windoww.style.height = window.innerHeight / 2 + 'px';
 		  	windoww.style.top = window.innerHeight / 6 + 'px';
+		    break;
+		  case "Nes":
+		  	windoww.style.left = window.innerWidth / 3.5 + 'px';
+		  	windoww.style.top = window.innerHeight / 7.4 + 'px';
 		    break;
 		  case "Trash":
 		  	windoww.style.width = window.innerWidth / 4.5 + 'px';
@@ -1204,6 +1328,7 @@
 	// Make the element draggable:
 	dragElement(document.getElementById("Gif"));
 	dragElement(document.getElementById("Exe"));
+	dragElement(document.getElementById("Nes"));
 	dragElement(document.getElementById("Trash"));
 
 	function dragElement(elmnt) {
@@ -1312,7 +1437,7 @@
 	    // stop resizing when mouse button is released:
 	    	stopResize();
 	    if (elmnt.id == "Exe") {
-	    	document.getElementById("DreamsBlock").click();
+	    	document.dispatchEvent(transform_scrollbar);
 	    	starCheck("StarPanel");
 	    }
 	  }
