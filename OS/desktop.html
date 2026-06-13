@@ -119,7 +119,37 @@
 							<div class="starflexx" id="StarNavigation"></div>
 						</div>
 						<div class="page_navigation">
-							<div class="arrows page_arrows"><span onclick="pageNumber(-1)" id="LeftArrow"><img src="assets/arrow.png" class="violet_arrow theme"><img src="assets/arrow1.png" class="light_arrow theme"></span><div class="page_number weeb theme" id="PageNumber"></div><span onclick="pageNumber(1)" id="RightArrow"><img src="assets/arrow.png" class="arrow_right violet_arrow theme"><img src="assets/arrow1.png" class="arrow_right light_arrow theme"></span></div>
+							<div class="arrows page_arrows">
+								<span onclick="pageNumber(-1)" id="LeftArrow">
+									<div class="arrow violet_arrow theme">
+										<div class="arrow-dash arrow-dash0"></div>
+										<div class="arrow-dash arrow-dash1"></div>
+										<div class="arrow-pixel arrow-pixel0"></div>
+										<div class="arrow-pixel arrow-pixel1"></div>
+									</div>
+									<div class="arrow light_arrow theme">
+										<div class="arrow-dash arrow-dash0"></div>
+										<div class="arrow-dash arrow-dash1"></div>
+										<div class="arrow-pixel arrow-pixel0"></div>
+										<div class="arrow-pixel arrow-pixel1"></div>
+									</div>
+								</span>
+								<div class="page_number weeb theme" id="PageNumber"></div>
+								<span onclick="pageNumber(1)" id="RightArrow">
+									<div class="arrow arrow_right violet_arrow theme">
+										<div class="arrow-dash arrow-dash0"></div>
+										<div class="arrow-dash arrow-dash1"></div>
+										<div class="arrow-pixel arrow-pixel0"></div>
+										<div class="arrow-pixel arrow-pixel1"></div>
+									</div>
+									<div class="arrow arrow_right light_arrow theme">
+										<div class="arrow-dash arrow-dash0"></div>
+										<div class="arrow-dash arrow-dash1"></div>
+										<div class="arrow-pixel arrow-pixel0"></div>
+										<div class="arrow-pixel arrow-pixel1"></div>
+									</div>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -147,7 +177,24 @@
 				</div>
 				<div class="window_content" id="GifContainer"></div>
 				<div class="window_footer theme">
-					<div class="arrows footer_arrows"><span onclick="picRandom(1)"><img src="assets/arrow.png"></span><span onclick="picRandom(0)"><img src="assets/arrow.png" class="arrow_right"></span></div>
+					<div class="arrows footer_arrows">
+						<span onclick="picRandom(1)">
+							<div  class="arrow footer_arrow violet_arrow">
+								<div class="arrow-dash arrow-dash0"></div>
+								<div class="arrow-dash arrow-dash1"></div>
+								<div class="arrow-pixel arrow-pixel0"></div>
+								<div class="arrow-pixel arrow-pixel1"></div>
+							</div>
+						</span>
+						<span onclick="picRandom(0)">
+							<div class="arrow footer_arrow violet_arrow arrow_right">
+								<div class="arrow-dash arrow-dash0"></div>
+								<div class="arrow-dash arrow-dash1"></div>
+								<div class="arrow-pixel arrow-pixel0"></div>
+								<div class="arrow-pixel arrow-pixel1"></div>
+							</div>
+						</span>
+					</div>
 					<div class="useless_rectangle"></div>
 					<div class="useless_rectangle2">
 						<div class="gif_footer_text">???</div>
@@ -250,6 +297,26 @@
 		<audio src="assets/Blank Banshee - Shut Down-Depression.mp3" controls></audio>
 	</body>
 	<script>
+	// possible future improvements:
+	// - more content
+	// - gif url's
+	// - add arrows control by keyboard
+	// - open the program by pressing enter when the icon is active
+	// - add a desktop wallpaper
+	// - more apps
+	// - different dream icons
+	// - fix scrollbar background
+	// - desktop addon
+	// - separate window for music player
+	// - minimizing windows
+	// - add something 3d
+	// - maybe separating the scripts from the markup, but i like it this way
+
+
+	const pageLoadedPromise = new Promise(resolve => {
+    window.addEventListener("load", resolve, { once: true });
+	});
+
 	// detect a touch-oriented device (doubleclick logic won't apply on such)
 	const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
 
@@ -352,28 +419,27 @@
 		} else {
 			loading.counter = 0;
 			
-			loaded(function() {
-				document.querySelector('#LoadingScreen').style.display = 'none';
-			});
-		}
-	}
-
-	function loaded(callback) {
-		let loadingSpinner = window.setInterval(function() {
-			document.getElementById('LoadingScreenSpinner').innerHTML = loading.spinning[loading.counter];
-			if (loading.counter < 3) {
-				loading.counter++;
-			} else {
-				loading.counter = 0;
-			}
-	  }, 150);
-		window.setTimeout(function() {
-			if (document.getElementsByTagName('body')[0] !== undefined) {
-				window.clearInterval(loadingSpinner);
+			let loadingSpinner = window.setInterval(function() {
 				document.getElementById('LoadingScreenSpinner').innerHTML = loading.spinning[loading.counter];
-				callback.call(this);
-			}
-		}, 3000);
+				if (loading.counter < 3) {
+					loading.counter++;
+				} else {
+					loading.counter = 0;
+				}
+			}, 150);
+
+			window.setTimeout(function() { // a little delay to display loading
+				initializationFinished(loadingSpinner);
+			}, 3000);
+		}
+
+		async function initializationFinished(loadingSpinner) {
+			await pageLoadedPromise;
+			await document.fonts.ready;
+
+			window.clearInterval(loadingSpinner);
+			document.querySelector('#LoadingScreen').style.display = 'none';
+		}
 	}
 
 
@@ -552,10 +618,7 @@
 			}
 			if (prog == "Nes") {
 				// pause the game
-				let wrapper = document.getElementsByClassName("nes-wrapper")[0];
-				if (wrapper && wrapper.classList.contains("nes-playing")) {
-					document.getElementsByClassName("nes-pause")[0].click();
-				}
+				document.querySelector("x-nes")?.pause?.();
 			}
 		}
 

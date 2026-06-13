@@ -108,10 +108,10 @@
         // Hide scrollbar if no scrolling is possible
         if(_this.scrollRatio >= 1) {
           _this.bar.classList.add('ss-hidden')
-          _this.bar.style.cssText = 'height:100%; right:-21px';
+          _this.bar.style.cssText = 'height:100%; right:-19px';
         } else {
           _this.bar.classList.remove('ss-hidden')
-          _this.bar.style.cssText = 'height:' + Math.max(_this.scrollRatio * 100, 5) + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:-21px';
+          _this.bar.style.cssText = 'height:' + Math.max(_this.scrollRatio * 100, 5) + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:-19px';
         }
       });
     }
