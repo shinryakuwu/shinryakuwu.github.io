@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Rieltor.ua notifier</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			@font-face {
+	 			font-family: Lucida Console;
+			}
+
+			body {
+				background-color: #e6e2f2;
+				background-image: url('bg.png');
+				background-attachment: fixed;
+				font-family: Lucida Console;
+			}
+
+			#header {
+				display: none;
+				padding: 2px 0;
+				position: sticky;
+  			top: 0;
+			}
+
+			#header {
+				background-color: rgba(255, 255, 255, 0.8);
+			}
+
+			.marquee {
+				position: relative;
+				overflow: hidden;
+				white-space: nowrap;
+			  --offset: 20vw;
+		    --move-initial: calc(-25% + var(--offset));
+		    --move-final: calc(-50% + var(--offset));
+			}
+
+			.marquee_inner {
+		    width: fit-content;
+		    display: flex;
+		    position: relative;
+		    transform: translate3d(var(--move-initial), 0, 0);
+		    animation: marquee 5s linear infinite;
+			}
+
+			@keyframes marquee {
+		    0% {
+		      transform: translate3d(var(--move-initial), 0, 0);
+		    }
+
+		    100% {
+		      transform: translate3d(var(--move-final), 0, 0);
+		    }
+			}
+
+			.marquee_text {
+				margin-right: 100px;
+			}
+
+			#title {
+				display: none;
+				height: 140px;
+				text-align: center;
+				white-space: nowrap;
+		    overflow: hidden;
+		    position: relative;
+			}
+
+			#title_text {
+				font-size: 2vw;
+				font-weight: bold;
+				white-space: nowrap;
+				text-shadow: 5px 5px 0 #ff005e, 10px 10px 0 #00d4ff;
+    		animation: shadow-dance 4s infinite;
+			}
+
+			@keyframes shadow-dance {
+		    0%, 100% {
+		      text-shadow: 5px 5px 0 #fff, 10px 10px 0 #eca5e3;
+		    }
+		    50% {
+		      text-shadow: -5px -5px 0 #a5e8ec, -10px -10px 0 #fff;
+		    }
+			}
+
+			#title img, #title span {
+				vertical-align: middle;
+			}
+
+			#title img {
+				width: 12%;
+			}
+
+			.mirrored {
+				transform: scaleX(-1);
+			}
+
+			#fetch_status {
+				position: absolute;
+				bottom: 20px;
+			  left: 50%;
+			  transform: translate(-50%, 0);
+			}
+
+			#main_container {
+				margin: auto;
+				padding: 10px;
+				width: 80%;
+				margin: auto;
+				display: grid;
+		    grid-template-columns: repeat(auto-fit, 200px);
+		    grid-auto-rows: 200px;
+		    gap: 10px;
+		    justify-content: center;
+		    align-content: start;
+			}
+
+			.item, #startup, #info {
+				background-color: rgba(255, 255, 255, 0.8);
+				display: block;
+				border-radius: 24px;
+				padding: 18px;
+			}
+
+			#startup, #info {
+				position: fixed;
+		    top: 50%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
+		    width: 40%;
+		    text-align: center;
+		    padding: 28px;
+			}
+
+			#url_input {
+				width: 90%;
+			}
+
+			#delay_warning {
+				font-size: 12px;
+				color: #f17b99;
+				display: none;
+			}
+
+			#info {
+				display: none;
+			}
+
+			#mona {
+				text-align: left;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
+
+			.item:hover {
+				background-color: rgba(192, 168, 224, 0.8);
+				color: white;
+			}
+
+			.new {
+				animation: color 2s infinite;
+			}
+
+			.new:hover {
+				animation: none;
+    		background-color: rgba(192, 168, 224, 0.8);
+			}
+
+			@keyframes color {
+		    0% { background-color: rgba(244, 210, 237, 0.8); }
+		    50% { background-color: rgba(187, 239, 242, 0.8); }
+		    100%{ background-color: rgba(244, 210, 237, 0.8); }
+			}
+
+			.cover {
+				width: 100%;
+				object-fit: cover;
+			}
+
+			.description {
+				width: 168px;
+				display: block;
+				white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+			}
+
+			a {
+				text-decoration: none;
+				color: black;
+			}
+
+			/* visited link */
+			a:visited {
+			  color: #6048a5;
+			}
+
+			/* selected link */
+			a:active {
+			  color: white;
+			}
+
+			.button_wrapper, .side_arrows {
+				display: flex;
+				justify-content: center;
+  			align-items: center;
+			}
+
+			button {
+				width: 88px;
+				height: 40px;
+				background-color: rgb(192, 168, 224);
+				color: white;
+				font-size: 18px;
+				z-index: 1;
+				position: relative;
+				border-top-color: #9a85b5;
+				border-left-color: #9a85b5;
+				border-bottom-color: #76648e;
+				border-right-color: #76648e;
+			}
+
+			button:hover {
+				background-color: #b49dd3;
+				border-top-color: #9a85b5;
+				border-left-color: #9a85b5;
+				border-bottom-color: #76648e;
+				border-right-color: #76648e;
+			}
+
+			.side_arrows {
+				margin: 0 8px;
+			}
+
+			.spinning {
+				animation-name: spin;
+			  animation-duration: 3s;
+			  animation-iteration-count: infinite;
+			  animation-timing-function: linear;
+			  height: 1rem;
+  			line-height: 0.77rem;
+			}
+
+			@keyframes spin {
+		    from {
+		      transform:rotate(0deg);
+		    }
+		    to {
+		      transform:rotate(360deg);
+		    }
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<div class="marquee">
+				<div class="marquee_inner" aria-hidden="true">
+					<span class="marquee_text">↓ Once new listings are submitted, you'll see them here in real time. ↓</span>
+					<span class="marquee_text">↓ Once new listings are submitted, you'll see them here in real time. ↓</span>
+					<span class="marquee_text">↓ Once new listings are submitted, you'll see them here in real time. ↓</span>
+					<span class="marquee_text">↓ Once new listings are submitted, you'll see them here in real time. ↓</span>
+				</div>
+			</div>
+		</div>
+		<div id="title">
+			<img src="dance.gif" class="mirrored">
+			<span id="title_text">=( o w o )=</span>
+			<img src="dance.gif">
+			<div id="fetch_status"></div>
+		</div>
+		<div id="startup">
+			<div id="startup_text">
+				<h3><b>= Welcome to Rieltor.ua Notifier =</b></h3><br>This website will monitor apartment listings for you and update in real time whenever new ones appear.<br><br>Enter your rieltor.ua search prompt URL:<br>
+				<input id="url_input" type="text" value="https://rieltor.ua/flats-rent/%D0%A2%D1%80%D0%BE%D1%94%D1%89%D0%B8%D0%BD%D0%B0-o138/"><br><br>
+				Refresh search results every:
+				<select id="delay_select">
+					<option value="1">1 minute</option>
+          <option value="2">2 minutes</option>
+          <option value="5" selected>5 minutes</option>
+          <option value="10">10 minutes</option>
+          <option value="20">20 minutes</option>
+          <option value="30">30 minutes</option>
+        </select><br>
+        <div id="delay_warning">⚠ Refreshing too often may trigger a CAPTCHA on rieltor.ua.</div><br>
+        <div class="button_wrapper">
+        	<span class="side_arrows">→ </span>
+	        <button id="start_button">Start</button>
+	        <span class="side_arrows"> ←</span>
+        </div>
+			</div>
+		</div>
+		<div id="info">
+			<div id="info_text"></div>
+			<div id="mona"></div>
+			<button onclick="location.reload()">Retry</button><br><br>
+		</div>
+		<div id="main_container"></div>
+		<script type="text/javascript">
+			const notification_sound = new Audio("meow.wav");
+			const listing_ids = new Set();
+			let max_pages = 1;
+			let changed = false;
+			let fetching = false;
+			let source_url;
+			let parsed_url;
+
+			const delaySelect = document.getElementById("delay_select");
+			const warning = document.getElementById("delay_warning");
+
+			delaySelect.addEventListener("change", () => {
+			    if (Number(delaySelect.value) <= 2) {
+			        warning.style.display = "block";
+			    } else {
+			        warning.style.display = "none";
+			    }
+			});
+
+			document.getElementById("start_button").addEventListener("click", start);
+
+			async function start() {
+				const button = document.getElementById("start_button");
+		    button.disabled = true;
+		    button.innerHTML = '<div class="spinning">⟳</div>';
+
+				let delay_minutes = Number(document.getElementById("delay_select").value);
+
+				if (delay_minutes < 1) {
+					document.getElementById("startup").remove();
+					displayInfo("delay_issue", null);
+				  return;
+				}
+
+				// ↓↓ You can decrease this value, but there's a high risk for rieltor.ua to throw a captcha ↓↓
+				// (this script doesn't solve captchas)
+				let refetch_delay = delay_minutes * 60 * 1000;
+
+				source_url = document.getElementById("url_input").value;
+
+				try { parsed_url = new URL(source_url); } catch {
+					document.getElementById("startup").remove();
+					displayInfo("parser_issue", null);
+				  return;
+				}
+
+		    await fetchListings(true);
+
+		    setInterval(update, delay_minutes * 60 * 1000);
+			}
+
+			async function update() {
+		    if (fetching) { return; }
+
+		    fetching = true;
+
+		    await fetchListings(false);
+
+		    fetching = false;
+			}
+
+			async function fetchListings(initial) {
+				console.log("fetch initiated");
+		    changed = false;
+
+		    for (let page = 1; page <= max_pages; page++) {
+	    		console.log("fetching page " + page);
+	    		let doc;
+
+	    		if (initial) {
+	    			displayFetchStatus(page, max_pages);
+	    		}
+
+	        parsed_url.searchParams.set("page", page);
+
+	        try {
+		        let response = await fetch(parsed_url);
+		        if (!response.ok) { throw new Error(`Server returned ${response.status}`);}
+		        let html = await response.text();
+		        doc = new DOMParser().parseFromString(html, "text/html");
+		      } catch (error) {
+		      	console.error(error);
+		      	if (initial) {
+		      		document.getElementById("startup")?.remove();
+		      		displayInfo("fetch_issue", error.message);
+		      		return;
+		      	}
+					}
+
+					let counter = doc.querySelector("[data-listing-count]")?.textContent;
+
+					if (/\d/.test(counter) || page != 1) {
+						let listings = doc.getElementsByClassName("catalog-card");
+		        addListingItems(listings, initial);
+
+		        if (page == 1) {
+		          defineMaxPages(counter);
+		          if (initial) {
+		          	document.getElementById("startup")?.remove();
+		          	displayBlock("header");
+		          	addTitle(doc);
+		          } else {
+		          	document.getElementById("info").style.display = "none";
+		          }
+		        }
+
+		        await sleep(Math.random() * (3000 - 2000) + 2000); // i'm a human i swear
+					} else {
+						document.getElementById("startup")?.remove();
+          	displayBlock("header");
+          	addTitle(doc);
+
+						if (initial && listing_ids.size < 1) {
+				    	displayInfo("no_listings", null);
+				    }
+					}	        
+		    }
+
+		    if (!initial && changed) { await notify(); }
+		    if (initial) { document.getElementById("fetch_status").innerHTML = ""; }
+
+		    console.log("fetch done");
+
+		    await Notification.requestPermission();
+			}
+
+			function sleep(ms) {
+			  return new Promise(resolve => setTimeout(resolve, ms));
+			}
+
+			function defineMaxPages(counter) {
+				let listings_count = Number(counter.match(/\d+/)[0]);
+				if (listings_count < 1) { return; }
+
+				max_pages = Math.floor(listings_count / 20);
+				if (listings_count % 20 > 0 || max_pages == 0) {
+					max_pages++;
+				}
+			}
+
+			function addListingItems(listings, initial) {
+				for (var i = 0; i < listings.length; i++) {
+					let id = listings[i].dataset.catalogItemId
+
+					if (!listing_ids.has(id)) {
+						let item = document.createElement("a");
+						item.className = "item";
+						item.href = listings[i].firstElementChild.href;
+
+						let cover = document.createElement("img");
+						cover.src = listings[i].getElementsByClassName("offer-photo-slider-slide-image")[0]?.src;
+						cover.className = "cover";
+
+						let description = document.createElement("div");
+						description.className = "description";
+						let price = listings[i]?.dataset?.label;
+						let address = listings[i].getElementsByClassName("catalog-card-address")[0]?.innerHTML;
+						description.innerHTML = "<b>" + price + "</b><br>" + address;
+
+						let container = document.getElementById("main_container");
+						item.appendChild(cover);
+						item.appendChild(description);
+
+						if (initial) {
+							container.appendChild(item);
+						} else {
+							item.className += " new";
+							container.prepend(item);
+						}
+
+						listing_ids.add(id);
+						changed = true;
+
+						if (!initial) { console.log("new listing found"); }
+					}
+				}
+			}
+
+			function addTitle(doc) {
+				let title = doc.getElementsByClassName("catalog-header__title")[0]?.innerText.trim();
+				if (!title) { return; }
+
+				// if (listing_ids.size > 0) {
+					displayBlock("title");
+				// }
+
+				let title_text = document.getElementById("title_text");
+				title_text.innerHTML = title;
+			}
+
+			function displayBlock(id) {
+				let block = document.getElementById(id);
+				block.style.display = "block";
+			}
+
+			function displayInfo(type, message) {
+				let split_cup = "　 　∧,,,∧<br>　 （ ・ω・）<br>　　( つ　O. __<br>　　と＿)_)（__(）､;.o：。<br>　　　　　　　　   　　ﾟ*･:.｡<br>"
+				let milkshake = "　 　∧,,,∧<br>　 （ ・ω・）<br>　　( つ旦O<br>　　と＿)_)<br><br>"
+				let inconvenience = "<b>Looks like there's some inconvenience going around</b><br><br>"
+
+				displayBlock("info");
+				let text = document.getElementById("info_text");
+				let ascii = document.getElementById("mona");
+
+				switch(type) {
+				  case "parser_issue":
+				    text.innerHTML = inconvenience + "<div>The URL parser doesn't appreciate the data that you provided. Please enter a valid URL.</div><br><br>";
+				    ascii.innerHTML = split_cup;
+				    break;
+				  case "fetch_issue":
+				    text.innerHTML = inconvenience + "<div>" + message + "</div><br><br>";
+				    ascii.innerHTML = split_cup;
+				    break;
+				  case "delay_issue":
+				  	text.innerHTML = "<div>🐟🐟🐟<br>Whatever you're doing is fishy, and you should stop it.</div><br><br>";
+				    ascii.innerHTML = milkshake;
+				    break;
+				  case "no_listings":
+				  	text.innerHTML = "<div><b>No listings matching your search so far.</b><br><br>You can leave this page open - they might appear here eventually.</div><br>Submitted the wrong URL? You can:<br><br><br>";
+				    ascii.innerHTML = milkshake;
+				    break;
+				  default:
+				    text.innerHTML = inconvenience;
+				    ascii.innerHTML = split_cup;
+				} 
+			}
+
+			function displayFetchStatus(page, max_pages) {
+				let fetch_status = document.getElementById("fetch_status");
+
+				if (page == 1) {
+					fetch_status.innerHTML = "Fetching listings...";
+				} else {
+					fetch_status.innerHTML = "Fetching page " + page + "/" + max_pages + "...";
+				}
+			}
+
+			async function notify() {
+				notification_sound.currentTime = 0;
+				notification_sound.play().catch(() => { console.log("Your browser blocked playing a notification"); });
+
+				await sleep(2000);
+
+				if (Notification.permission === "granted") {
+	        new Notification("( • ω • )っ🏠", {
+            body: "New Rieltor.ua. listings!"
+	        });
+		    }
+			}
+		</script>
+	</body>
+</html>
