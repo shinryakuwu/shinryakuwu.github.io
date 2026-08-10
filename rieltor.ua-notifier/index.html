@@ -3,6 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Rieltor.ua notifier</title>
+		<meta name="description"
+          content="A simple Rieltor.ua listing notifier that periodically checks your search results and alerts you when new apartments appear.">
+		<meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 		<style>
 			* {
 				margin: 0;
@@ -65,11 +69,9 @@
 
 			#title {
 				display: none;
-				height: 140px;
 				text-align: center;
 				white-space: nowrap;
 		    overflow: hidden;
-		    position: relative;
 			}
 
 			#title_text {
@@ -102,10 +104,7 @@
 			}
 
 			#fetch_status {
-				position: absolute;
-				bottom: 20px;
-			  left: 50%;
-			  transform: translate(-50%, 0);
+				text-align: center;
 			}
 
 			#main_container {
@@ -273,8 +272,8 @@
 			<img src="dance.gif" class="mirrored">
 			<span id="title_text">=( o w o )=</span>
 			<img src="dance.gif">
-			<div id="fetch_status"></div>
 		</div>
+		<div id="fetch_status"></div>
 		<div id="startup">
 			<div id="startup_text">
 				<h3><b>= Welcome to Rieltor.ua Notifier =</b></h3><br>This website will monitor apartment listings for you and update in real time whenever new ones appear.<br><br>Enter your rieltor.ua search prompt URL:<br>
