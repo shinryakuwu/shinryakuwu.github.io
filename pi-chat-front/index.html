@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JINE</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			@font-face {
+	 			font-family: PixelMplus10;
+	 			src: url(assets/PixelMplus10-Regular.ttf);
+			}
+
+			@font-face {
+	 			font-family: PixelMplus12;
+	 			src: url(assets/PixelMplus12-Regular.ttf);
+			}
+
+			html, body {
+				height: 100%;
+			}
+
+			input, textarea {
+			  background: none;
+			  border: none;
+			}
+
+			textarea {
+				resize: none;
+			}
+
+			textarea:focus, input:focus{
+			  outline: none;
+			}
+
+			#left_side_panel, #right_side_panel {
+				position: relative;
+				background-image: url('assets/side_panel_day.png');
+				background-size: cover;
+				height: 100%;
+				width: 242px;
+				display: inline-block;
+			}
+
+			#right_side_panel {
+				transform: scaleX(-1);
+			}
+
+			#left_side_panel::after, #right_side_panel::after {
+		    content: "";
+		    position: absolute;
+		    inset: 0;
+		    background-image: url('assets/side_panel_night.png');
+		    background-size: cover;
+		    opacity: 0;
+		    transition: opacity 4s ease;
+			}
+
+			#left_side_panel.night::after, #right_side_panel.night::after {
+		    opacity: 1;
+			}
+
+			body {
+				display: flex;
+				justify-content: space-between;
+				color: #4d23cd;
+			}
+
+			#main {
+				background-image: url('assets/wallpaper.png');
+				display: inline-block;
+				width: calc(100% - (2 * 242px));
+				height: 100%;
+			}
+
+			#icon_container {
+				text-align: center;
+				width: 66px;
+				margin: 72px;
+				cursor: pointer;
+			}
+
+			#icon_text {
+				font-family: PixelMplus10;
+				font-size: 20px;
+			}
+
+			#window {
+				width: calc(100% - (2 * 242px));
+				height: 100%;
+				border: 2px solid #4d23cd;
+				background-color: #90f3e1;
+				position: absolute;
+			}
+
+			#window_header {
+				font-family: PixelMplus10;
+				font-size: 20px;
+				background-color: #efcfef;
+				border: 2px solid #4d23cd;
+				margin: 4px;
+				padding: 4px;
+				line-height: 0;
+				position: relative;
+			}
+
+			#window_header_square {
+				width: 18px;
+				height: 18px;
+				background-color: #4d23cd;
+				display: inline-block;
+			}
+
+			#window_header_text {
+				position: relative;
+				bottom: 2px;
+				left: 4px;
+			}
+
+			#window_header_cross {
+				position: absolute;
+				cursor: pointer;
+				right: 3px;
+				top: 3px;
+			}
+
+			#window_footer {
+				position: relative;
+				height: 16px;
+			}
+
+			#window_footer_big_block {
+				width: 36px;
+				height: 9px;
+				background-color: #ea9fe7;
+				border: 2px solid #4d23cd;
+				border-bottom: none;
+				margin-left: 4px;
+				position: absolute;
+				bottom: 0;
+			}
+
+			.window_footer_small_block {
+				width: 6px;
+				height: 6px;
+				border: 2px solid #4d23cd;
+				margin-bottom: 2px;
+				position: absolute;
+				bottom: 0;
+			}
+
+			#footer_block1 {
+				left: 42px;
+			}
+
+			#footer_block2 {
+				left: 50px;
+			}
+
+			#footer_block3 {
+				left: 58px;
+			}
+
+			#window_content {
+				height: calc(100% - 34px - 20px);
+				margin: 0 4px;
+				border: 2px solid #4d23cd;
+				display: flex;
+				font-family: PixelMplus12;
+				overflow: hidden;
+				position: relative;
+			}
+
+			#nav {
+				width: 30%;
+				background-color: #fcf0fd;
+				min-width: 192px;
+			}
+
+			#nav_header {
+				background-color: #f6e0f8;
+				padding: 10px;
+				display: flex;
+			}
+
+			#profile_picture_small {
+				display: block;
+				width: 50px;
+				height: 50px;
+				object-fit: cover;
+				cursor: pointer;
+			}
+
+			#search {
+				display: inline-block;
+				background-color: #ccecfc;
+				margin-left: 10px;
+				width: calc(100% - 50px - 10px);
+				border-radius: 10px;
+				padding: 7px 10px;
+			}
+
+			#chat {
+				background-image: url('assets/chat_bg.png');
+				width: 70%;
+				height: 100%;
+				position: relative;
+				min-width: 575px;
+			}
+
+			#chat_input_panel {
+				position: absolute;
+				bottom: 0;
+				background-color: rgba(71, 106, 255, 0.18);
+				width: 100%;
+				height: 272px;
+				padding: 12px;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.message_type_tab {
+				display: none;
+			}
+
+			.message_type_tab.active {
+				display: block;
+			}
+
+			#chat_text_tab {
+				background-color: rgba(255, 255, 255, 0.7);
+				border-radius: 10px;
+			}
+
+			#chat_text_tab, #chat_stickers_tab, #chat_paint_tab {
+				padding: 14px;
+				width: calc(100% - 74px - 12px);
+			}
+
+			#message_input, #search_input {
+				width: 100%;
+				height: 100%;
+				font-family: PixelMplus12;
+			  color: #4d23cd;
+			  font-size: 24px;
+			}
+
+			.chat_button {
+				width: 74px;
+				height: 62px;
+				background-color: #f6e0f8;
+				border-top: 2px solid #fcf1fc;
+				border-left: 2px solid #fcf1fc;
+				border-right: 2px solid #815cda;
+				border-bottom: 2px solid #815cda;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+			}
+
+			.chat_button:hover, .tool_button:hover {
+				background-color: #efa3fc;
+			}
+
+			.chat_button img.active, .tool_button img.active {
+				display: none;
+			}
+
+			.chat_button.active img.inactive, .tool_button.active img.inactive {
+				display: none;
+			}
+
+			.chat_button.active img.active, .tool_button.active img.active {
+				display: inline-block;
+			}
+
+			.chat_button.active, .tool_button.active {
+				background-color: #4d23cd;
+				border: none;
+			}
+
+			.nav_item {
+				width: 100%;
+				display: flex;
+				padding: 6px;
+				cursor: pointer;
+			}
+
+			.nav_item_name, .nav_item_message {
+				font-size: 24px;
+				white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+			}
+
+			.nav_item_name {
+				width: calc(100% - 42px);
+			}
+
+			.nav_item_message_container {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+			}
+
+			.nav_item_message, .nav_item_time {
+				color: #816bda;
+			}
+
+			.nav_item_time, .nav_item_count {
+				font-family: PixelMplus10;
+/*				font-size: 20px;*/
+			}
+
+			.nav_item:hover {
+				background-color: #efa3fc;
+			}
+
+			.nav_item.active {
+				color: white;
+				background-color: #4d23cd;
+			}
+
+			.nav_item.active .nav_item_message, .nav_item.active .nav_item_time {
+				color: white;
+			}
+
+			.nav_item_picture, .profile_picture {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				object-fit: cover;
+				flex-shrink: 0;
+				cursor: pointer;
+			}
+
+			.nav_item_text {
+				padding-left: 6px;
+				width: calc(100% - 50px);
+				position: relative;
+			}
+
+			.nav_item_time {
+				display: block;
+				position: absolute;
+				right: 2px;
+			}
+
+			.nav_item_count {
+/*				display: block;*/
+				display: none;
+				background-color: #fc5aa0;
+				border-radius: 12px;
+				text-align: center;
+				color: white;
+				padding: 1px 7px 1px 9px;
+				flex-shrink: 0;
+			}
+
+			#nav {
+				overflow: auto;
+    		overflow-x: hidden;
+			}
+
+			#chat_stickers_tab {
+				width: 100%;
+				height: 100%;
+				overflow: auto;
+    		overflow-x: hidden;
+			}
+
+			#chat_stickers_content {
+				width: 100%;
+				display: grid;
+		    grid-template-columns: repeat(auto-fit, 100px);
+		    grid-auto-rows: 100px;
+		    gap: 10px;
+		    justify-content: center;
+		    align-content: start;
+			}
+
+			.sticker {
+				cursor: pointer;
+				opacity: 0.5;
+			}
+
+			.sticker:hover {
+				opacity: 1;
+			}
+
+			.sticker img {
+				height: 100%;
+				object-fit: cover;
+			}
+
+			#chat_container {
+				width: 100%;
+				padding: 16px;
+				height: calc(100% - 272px);
+				overflow: auto;
+				position: relative;
+			}
+
+			#chat_content {
+				width: 100%;
+				display: flex;
+    		flex-direction: column;
+    		gap: 10px;
+			}
+
+			.message {
+		    position: relative;
+		    display: flex;
+		    align-items: flex-end;
+		    gap: 8px;
+		    max-width: 100%;
+			}
+
+			.message.text_message .bubble {
+				position: relative;
+				max-width: 70%;
+		    padding: 4px 14px;
+		    border-radius: 10px;
+		    line-height: 1.4;
+		    font-family: PixelMplus12;
+				font-size: 24px;
+				white-space: pre-wrap;
+				overflow-wrap: anywhere;
+			}
+
+			.message .profile_picture {
+				align-self: flex-start;
+			}
+
+			.received.text_message .bubble {
+				background: #cce4fc;
+			}
+
+			.received.text_message .bubble::before {
+		    content: "";
+		    position: absolute;
+		    top: 10px;
+		    left: -8px;
+		    width: 3px;
+		    height: 0;
+		    border-top: 8px solid #cce4fc;
+		    border-left: 8px solid transparent;
+		    transform: rotate(15deg);
+			}
+
+			.sent {
+		    justify-content: flex-end;
+			}
+
+			.sent.text_message .bubble {
+				background: #4aee53;
+			}
+
+			.sent.text_message .bubble::after {
+		    content: "";
+		    position: absolute;
+		    top: 10px;
+		    right: -8px;
+		    width: 3px;
+		    height: 0;
+		    border-top: 8px solid #4aee53;
+		    border-right: 8px solid transparent;
+		    transform: rotate(-15deg);
+			}
+
+			.sticker_message .chat_sticker {
+				height: 100px;
+				width: 100px;
+				object-fit: cover;
+			}
+
+			.message_actions {
+				color: white;
+				display: flex;
+		    align-items: center;
+		    gap: 6px;
+		    white-space: nowrap;
+			}
+
+			.message_actions .time, .message_actions .reply {
+				opacity: 0;
+    		transition: opacity 0.15s;
+			}
+
+			.message:hover .message_actions .time, .message:hover .message_actions .reply {
+			  opacity: 1;
+			}
+
+			.reply {
+		    cursor: pointer;
+			}
+
+			.reply:hover {
+			  color: #4d23cd;
+			}
+
+			.read {
+				font-family: PixelMplus10;
+			}
+
+			#chat_paint_tab {
+				padding-right: 12px;
+			}
+
+			#drawing_tools {
+		    display: flex;
+		    align-items: center;
+		    gap: 8px;
+		    margin-bottom: 10px;
+			}
+
+			#drawing_canvas {
+		    display: block;
+		    width: 360px;
+		    height: 180px;
+		    background: rgba(255, 255, 255, 0.7);
+		    border: 2px solid #4d23cd;
+		    cursor: crosshair;
+		    touch-action: none;
+			}
+
+			#drawing_tools_top {
+				font-family: PixelMplus10;
+				font-size: 20px;
+				display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  gap: 8px;
+			  padding-bottom: 8px;
+			}
+
+			#drawing_canvas_container {
+				display: flex;
+				margin: 0 auto;
+				width: 398px;
+			}
+
+			.tool_button {
+				background-color: #f6e0f8;
+				margin: 0px 6px 5px 0px;
+				border: 2px solid #4d23cd;
+				width: 32px;
+				height: 32px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+			}
+
+			#chat_container, #chat_input_panel {
+				display: none;
+			}
+
+			#void_cat {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+			  transform: translate(-50%, -50%);
+			  width: 320px;
+			}
+
+			#void_cat_blob {
+				background-color: #efcfef;
+				font-family: PixelMplus10;
+        color: #4d23cd;
+        padding: 10px;
+        font-size: 20px;
+        display: inline-block;
+        border: 2px solid #4d23cd;
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 2;
+			}
+
+			#void_cat_blob .triangle {
+		    content: "";
+		    position: absolute;
+		    width: 0;
+		    height: 0;
+			}
+
+			#void_cat_blob .triangle.blue {
+		    bottom: -24px;
+		    left: 172px;
+		    border-top: 24px solid #4d23cd;
+		    border-left: 24px solid transparent;
+		    z-index: 1;
+			}
+
+			#void_cat_blob .triangle.pink {
+		    bottom: -20px;
+		    left: 174px;
+		    border-top: 20px solid #efcfef;
+		    border-left: 20px solid transparent;
+		    z-index: 3;
+			}
+
+			#void_cat img {
+				position: relative;
+				left: 200px;
+			}
+/*
+			#nav, #chat {
+				display: none;
+			}*/
+
+			#auth_screen {
+		    width: 100%;
+		    height: 100%;
+/*		    display: flex;*/
+		    display: none;
+		    justify-content: center;
+		    align-items: center;
+		    background-image:
+	        linear-gradient(
+            rgba(255, 255, 255, 0.25),
+            rgba(255, 255, 255, 0.25)
+	        ),
+	        url("assets/auth_bg.png");
+			}
+
+			#auth_box {
+				font-family: PixelMplus10;
+				font-size: 20px;
+		    width: min(90%, 420px);
+		    padding: 35px;
+		    background: rgba(255, 255, 255, 0.88);
+		    border-radius: 16px;
+/*		    box-shadow: 0 10px 30px rgba(70, 50, 90, 0.25);*/
+		    text-align: center;
+			}
+
+			.auth_form {
+		    display: flex;
+		    flex-direction: column;
+		    gap: 12px;
+		    transition: opacity 0.2s ease, transform 0.2s ease;
+			}
+
+			.auth_form.hidden {
+				display: none;
+			}
+
+			.auth_header, .profile_header {
+				font-family: PixelMplus12;
+				font-size: 24px;
+		    margin-bottom: 10px;
+			}
+
+			.auth_form input {
+		    width: 100%;
+		    padding: 12px 14px;
+		    border: 2px solid #ddd;
+		    border-radius: 10px;
+		    font: inherit;
+		    outline: none;
+		    color: #4d23cd;
+			}
+
+			.auth_form input:focus {
+		    border-color: #c0a8e0;
+			}
+
+			button.submit, .profile_picture_button {
+				font-family: PixelMplus10;
+				font-size: 20px;
+		    background: #c0a8e0;
+		    cursor: pointer;
+		    transition: background 0.2s;
+		    width: 160px;
+		    margin: 5px auto 0 auto;
+		    padding: 8px;
+		    background-color: #f6e0f8;
+				border-top: 2px solid #fcf1fc;
+				border-left: 2px solid #fcf1fc;
+				border-right: 2px solid #815cda;
+				border-bottom: 2px solid #815cda;
+				color: #4d23cd;
+			}
+
+			.profile_picture_button {
+				padding: 4px;
+			}
+
+			button.submit:hover, .profile_picture_button:hover {
+		    background-color: #efa3fc;
+			}
+
+			button.submit:active, .profile_picture_button:active {
+			  border-right: 2px solid #fcf1fc;
+				border-bottom: 2px solid #fcf1fc;
+				border-top: 2px solid #815cda;
+				border-left: 2px solid #815cda;
+			}
+
+			.auth_toggle_block {
+		    margin-top: 10px;
+			}
+
+			.auth_switch {
+		    padding: 0;
+		    border: none;
+		    background: none;
+		    color: #9e85e3;
+		    font: inherit;
+		    cursor: pointer;
+		    text-decoration: underline;
+			}
+
+			.auth_switch:hover {
+		    color: #4d21cb;
+			}
+
+			.profile_overlay {
+				display: none;
+		    position: absolute;
+		    width: 100%;
+		    height: 100%;
+		    z-index: 5;
+		    justify-content: center;
+		    align-items: center;
+		    padding: 20px;
+		    background: rgba(71, 106, 255, 0.18);
+			}
+
+			.profile_window {
+				font-family: PixelMplus12;
+				font-size: 24px;
+		    position: relative;
+		    padding: 35px;
+		    background-color: #fcf0fd;
+		    border-radius: 16px;
+			}
+
+			.profile_close {
+		    position: absolute;
+		    top: 8px;
+		    right: 16px;
+		    border: none;
+		    background: none;
+		    cursor: pointer;
+		    font-family: PixelMplus12;
+				font-size: 36px;
+				color: #4d23cd;
+			}
+
+			.profile_header {
+				text-align: center;
+			}
+
+			.profile_information_top, .profile_information_bottom {
+		    display: flex;
+		    justify-content: center;
+		    gap: 25px;
+			}
+
+			.profile_picture_section {
+				width: 160px;
+			}
+
+			.profile_picture_section img {
+				width: 160px;
+				height: 160px;
+				object-fit: cover;
+				flex-shrink: 0;
+			}
+
+			.profile_field textarea {
+				white-space: pre-wrap;
+    		overflow-wrap: anywhere;
+    		height: 150px;
+			}
+
+			.profile_window input, .profile_window textarea {
+				font-family: PixelMplus12;
+				font-size: 24px;
+				background-color: #fff;
+				border-radius: 10px;
+				color: #816bda;
+				padding: 4px 8px;
+				margin-top: 8px;
+				width: 100%;
+			}
+
+			.profile_field {
+				margin: 8px 0;
+			}
+
+			.profile_information_side {
+				min-width: 160px;
+				max-width: 420px;
+			}
+
+			.profile_info_text {
+				color: #816bda;
+			}
+
+			.profile_name, .profile_username {
+				white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+			}
+
+			.profile_bio {
+				word-break: break-word;
+				max-height: 220px;
+				overflow-y: auto;
+			}
+
+			#your_profile.active, #user_profile.active {
+				display: flex;
+			}
+
+			/* Chromium, Safari, Edge */
+			::-webkit-scrollbar {
+				width: 12px;
+			}
+
+			::-webkit-scrollbar-track {
+			  background: transparent;
+			}
+
+			::-webkit-scrollbar-thumb {
+			  background: #ccecfc;
+			  border-radius: 0; /* plain rectangle */
+			}
+
+			/* Firefox */
+			* {
+				scrollbar-width: auto;
+			  scrollbar-color: #ccecfc transparent;
+			}
+
+			.reply {
+				display: none;
+			}
+
+			#back_to_navigation {
+        display: none;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 2;
+        width: 35px;
+        height: 35px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.8);
+        font-size: 20px;
+        font-family: PixelMplus10;
+        color: #4d23cd;
+        cursor: pointer;
+        opacity: 0.7;
+	    }
+
+	    #back_to_navigation:hover {
+        opacity: 1;
+	    }
+
+			@media screen and (max-width: 1270px) {
+			  #left_side_panel, #right_side_panel {
+					display: none;
+				}
+
+				#main {
+					width: 100%;
+				}
+
+				#window {
+					width: 100%;
+				}
+			}
+
+			@media screen and (max-width: 800px) {
+				#nav,
+    		#chat {
+	        width: 100%;
+	        height: 100%;
+		    }
+
+		    #chat {
+        	display: none;
+		    }
+
+		    #window.show_chat #nav {
+	        display: none;
+		    }
+
+		    #window.show_chat #chat {
+	        display: block;
+		    }
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="left_side_panel">
+		</div>
+		<div id="main">
+			<div id="window">
+				<div id="window_header">
+					<img id="window_header_cross" src="assets/window_cross.png">
+					<div id="window_header_square"></div><span id="window_header_text">JINE</span>
+				</div>
+				<div id="window_content">
+					<div id="auth_screen">
+						<div id="auth_box">
+							<div class="auth_form" id="sign_in_form">
+					      <div class="auth_header">Sign In</div>
+					      <input id="username_input" placeholder="Username" type="text">
+					      <input id="password_input" placeholder="Password" type="password">
+					      <button class="submit">Sign in</button>
+					      <div class="auth_toggle_block">
+									Don't have an account?
+					        <button type="button" class="auth_switch" data-target="sign_up_form">Sign up</button>
+					      </div>
+					    </div>
+					    <div class="auth_form hidden" id="sign_up_form">
+					    	<div class="auth_header">Sign Up</div>
+					    	<input id="username_input" placeholder="Username" type="text">
+					    	<input id="name_input" placeholder="Your name" type="text">
+					    	<input id="password_input" placeholder="Password" type="password">
+					    	<input id="password_confirmation_input" placeholder="Confirm password" type="password">
+					    	<button class="submit">Sign up</button>
+					    	<div class="auth_toggle_block">
+									Already have an account?
+					        <button type="button" class="auth_switch" data-target="sign_in_form">Sign in</button>
+					      </div>
+					    </div>
+						</div>
+					</div>
+					<div class="profile_overlay" id="your_profile">
+						<div class="profile_window">
+							<button class="profile_close" type="button">×</button>
+							<div class="profile_header">Profile</div>
+							<div class="profile_information profile_information_top">
+								<div class="profile_picture_section">
+									<img src="assets/pp.png">
+									<button class="profile_picture_button">Upload image</button>
+									<button class="profile_picture_button">Remove image</button>
+								</div>
+								<div class="profile_information profile_information_side">
+									<div class="profile_field">
+										<label>Name</label>
+			              <input value="Angel-chan" type="text">
+			            </div>
+			            <div class="profile_field">
+			              <label>Username</label>
+			              <input value="x_angelkawaii_x" type="text">
+			            </div>
+			            <div class="profile_field">
+			              <label>Bio</label><br>
+			              <textarea value="I can be your angle"></textarea>
+			            </div>
+								</div>
+							</div>
+							<div class="profile_information profile_information_bottom">
+		            <button class="submit">Update profile</button>
+							</div>
+						</div>
+					</div>
+					<div class="profile_overlay" id="user_profile">
+						<div class="profile_window">
+							<button class="profile_close" type="button">×</button>
+							<div class="profile_header">Profile</div>
+							<div class="profile_information profile_information_top">
+								<div class="profile_picture_section">
+									<img src="assets/pp1.png">
+								</div>
+								<div class="profile_information profile_information_side">
+									<div class="profile_field">
+										<label>Name</label><br>
+										<div class="profile_info_text profile_name">Ame</div>
+			            </div>
+			            <div class="profile_field">
+			              <label>Username</label><br>
+			              <div class="profile_info_text profile_username">@raincandy_U</div>
+			            </div>
+			            <div class="profile_field">
+			              <label>Bio</label><br>
+			              <div class="profile_info_text profile_bio">DM me</div>
+			            </div>
+								</div>
+							</div>
+							<div class="profile_information profile_information_bottom">
+		            <button class="submit">Message</button>
+							</div>
+						</div>
+					</div>
+					<div id="nav">
+						<div id="nav_header">
+							<img id="profile_picture_small" src="assets/pp.png">
+							<div id="search">
+								<input id="search_input" placeholder="Search" type="text">
+							</div>
+						</div>
+						<div id="nav_content">
+							<div class="nav_item">
+								<img class="nav_item_picture" src="assets/pp1.png">
+								<div class="nav_item_text">
+									<div id="ame_time" class="nav_item_time">14:34</div>
+									<div class="nav_item_name">Ame</div>
+									<div class="nav_item_message_container">
+										<div id="ame_preview" class="nav_item_message">Sticker</div>
+										<div class="nav_item_count">99+</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="chat">
+						<button id="back_to_navigation">←</button>
+						<div id="void_cat">
+							<div id="void_cat_blob">
+								Nothing is going on here.<br>Pick a chat to text someone.
+								<div class="triangle blue"></div>
+								<div class="triangle pink"></div>
+							</div>
+							<img src="assets/pi_chan.png">
+						</div>
+						<div id="chat_container">
+							<div id="chat_content">
+								<div class="message received text_message">
+							    <img class="profile_picture" src="assets/pp1.png">
+							    <div class="bubble">hi!</div>
+							    <div class="message_actions">
+						        <span class="time">14:32</span>
+						        <span class="reply">↩</span>
+							    </div>
+								</div>
+								<div class="message sent text_message">
+									<div class="message_actions">
+										<span class="reply">↩</span>
+						        <span class="time">14:33</span>
+						        <span class="read">Read</span>
+							    </div>
+							    <div class="bubble">Hi! How are you?</div>
+								</div>
+								<div class="message received text_message">
+							    <img class="profile_picture" src="assets/pp1.png">
+							    <div class="bubble">i don't know anymore</div>
+							    <div class="message_actions">
+						        <span class="time">14:34</span>
+						        <span class="reply">↩</span>
+							    </div>
+								</div>
+				        <div class="message sent sticker_message">
+				        	<div class="message_actions">
+				        		<span class="reply">↩</span>
+						        <span class="time">14:34</span>
+						        <span class="read">Read</span>
+							    </div>
+				          <img class="chat_sticker" src="assets/stickers/sad.png">
+				        </div>
+				        <div class="message received sticker_message">
+				        	<img class="profile_picture" src="assets/pp1.png">
+				          <img class="chat_sticker" src="assets/stickers/ded.png">
+				          <div class="message_actions">
+						        <span class="time">14:34</span>
+						        <span class="reply">↩</span>
+							    </div>
+				        </div>
+					    </div>
+						</div>
+						<div id="chat_input_panel">
+							<div id="chat_text_tab" class="message_type_tab active">
+								<textarea id="message_input"></textarea>
+							</div>
+							<div id="chat_paint_tab" class="message_type_tab">
+								<div id="drawing_editor">
+							    <div id="drawing_tools_top">
+						        <label>Color:</label><input type="color" id="color_picker" value="#000000">
+						        <label>Size:</label><input type="range" id="size_picker" min="1" max="30" value="5">
+							    </div>
+							    <div id="drawing_canvas_container">
+							    	<div id="drawing_tools_side">
+								    	<div id="brush_button" class="tool_button tool_button_state active" title="brush">
+								    		<img class="inactive" src="assets/tools/brush.png">
+												<img class="active" src="assets/tools/brush_active.png">
+								    	</div>
+							        <div id="eraser_button" class="tool_button tool_button_state" title="eraser">
+							        	<img class="inactive" src="assets/tools/eraser.png">
+												<img class="active" src="assets/tools/eraser_active.png">
+							        </div>
+							        <div id="picker_button" class="tool_button tool_button_state" title="picker">
+							        	<img class="inactive" src="assets/tools/picker.png">
+												<img class="active" src="assets/tools/picker_active.png">
+							        </div>
+							        <div id="undo_button" class="tool_button" title="undo">
+							        	<img class="inactive" src="assets/tools/undo.png">
+							        </div>
+							        <div id="clear_button" class="tool_button" title="clear">
+							        	<img class="inactive" src="assets/tools/clear.png">
+							        </div>
+								    </div>
+								    <canvas id="drawing_canvas" width="360" height="180"></canvas>
+							    </div>
+								</div>
+							</div>
+							<div id="chat_stickers_tab" class="message_type_tab">
+								<div id="chat_stickers_content">
+									<div class="sticker">
+										<img src="assets/stickers/ok.png">
+									</div>
+									<div class="sticker">
+										<img src="assets/stickers/omg.png">
+									</div>
+									<div class="sticker">
+										<img src="assets/stickers/sad.png">
+									</div>
+									<div class="sticker">
+										<img src="assets/stickers/idc.png">
+									</div>
+									<div class="sticker">
+										<img src="assets/stickers/sorry.png">
+									</div>
+									<div class="sticker">
+										<img src="assets/stickers/ded.png">
+									</div>
+									<div class="sticker">
+										<img src="assets/stickers/love.png">
+									</div>
+									<div class="sticker">
+										<img src="assets/stickers/this.png">
+									</div>
+								</div>
+							</div>
+							<div id="chat_button_panel">
+								<div class="chat_button message_type_button active" id="text_button">
+									<img class="inactive" src="assets/text_icon.png">
+									<img class="active" src="assets/text_icon_active.png">
+								</div>
+								<div class="chat_button message_type_button" id="paint_button">
+									<img class="inactive" src="assets/paint_icon.png">
+									<img class="active" src="assets/paint_icon_active.png">
+								</div>
+								<div class="chat_button message_type_button" id="stickers_button">
+									<img class="inactive" src="assets/sticker_icon.png">
+									<img class="active" src="assets/sticker_icon_active.png">
+								</div>
+								<div class="chat_button" id="send_button">
+									<img src="assets/send_icon.png">
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="window_footer">
+					<div id="window_footer_big_block"></div><div class="window_footer_small_block" id="footer_block1"></div><div class="window_footer_small_block" id="footer_block2"></div><div class="window_footer_small_block" id="footer_block3"></div>
+				</div>
+			</div>
+			<div id="icon_container">
+				<img src="assets/jine_icon.png">
+				<div id="icon_text">Jine</div>
+			</div>
+		</div>
+		<div id="right_side_panel">
+		</div>
+		<script src="paint.js"></script>
+		<script type="text/javascript">
+			(function disableImageDrag() {
+				document.addEventListener('dragstart', function (event) {
+					if (event.target.tagName === 'IMG') {
+							event.preventDefault();
+					}
+				});
+			})();
+
+			function updateSidePanels() {
+		    let hour = new Date().getHours();
+		    let isNight = hour >= 22 || hour < 6;
+
+		    document.getElementById("left_side_panel").classList.toggle("night", isNight);
+				document.getElementById("right_side_panel").classList.toggle("night", isNight);
+			};
+
+			updateSidePanels();
+
+			setInterval(updateSidePanels, 60 * 1000); // check time once per minute
+
+			document.getElementById("window_header_cross").addEventListener("click", closeWindow);
+			document.getElementById("icon_container").addEventListener("click", openWindow);
+			document.getElementById("back_to_navigation").addEventListener("click", showNavigation);
+			document.getElementById("profile_picture_small").addEventListener("click", openYourProfile);
+
+			document.getElementById("send_button").addEventListener("click", sendMessage);
+			document.querySelectorAll(".sticker").forEach((sticker) => sticker.addEventListener("click", sendMessage));
+
+			document.querySelectorAll(".message_type_button").forEach((button) => button.addEventListener("click", switchMessageTypeTab));
+			document.querySelectorAll(".tool_button_state").forEach((button) => button.addEventListener("click", switchDrawingTool));
+			document.querySelectorAll(".nav_item").forEach((item) => item.addEventListener("click", openChat));
+			document.querySelectorAll(".profile_picture").forEach((img) => img.addEventListener("click", openUserProfile));
+			document.querySelectorAll(".nav_item_picture").forEach((img) => img.addEventListener("click", openUserProfile));
+			document.querySelectorAll(".profile_close").forEach((button) => button.addEventListener("click", closeProfile));
+
+			document.querySelectorAll(".auth_switch").forEach(button => {
+		    button.addEventListener("click", () => {
+	        document.querySelectorAll(".auth_form").forEach(form => { form.classList.add("hidden") });
+        	document.getElementById(button.dataset.target).classList.remove("hidden");
+        });
+			});
+
+			function closeWindow() {
+				document.getElementById("window").style.display = "none";
+			}
+
+			function openWindow() {
+				document.getElementById("window").style.display = "block";
+			}
+
+			function showChat() {
+		    document.getElementById("window").classList.add("show_chat");
+			}
+
+			function showNavigation() {
+				disableElementsByClassname(".nav_item");
+				document.getElementById("chat_container").style.display = "none";
+				document.getElementById("chat_input_panel").style.display = "none";
+				document.getElementById("back_to_navigation").style.display = "none";
+				document.getElementById("void_cat").style.display = "block";
+		    document.getElementById("window").classList.remove("show_chat");
+			}
+
+			function openChat() {
+				let item = event.currentTarget;
+				item.classList.add("active");
+				document.getElementById("void_cat").style.display = "none";
+				document.getElementById("chat_container").style.display = "block";
+				document.getElementById("chat_input_panel").style.display = "flex";
+				document.getElementById("back_to_navigation").style.display = "block";
+
+		    showChat();
+			}
+
+			function openYourProfile() {
+				document.getElementById("your_profile").classList.add("active");
+			}
+
+			function openUserProfile(event) {
+				document.getElementById("user_profile").classList.add("active");
+				event.stopPropagation();
+			}
+
+			function closeProfile() {
+				disableElementsByClassname(".profile_overlay");
+			}
+
+			function switchMessageTypeTab(event) {
+				let pressed_button = event.currentTarget;
+				if (pressed_button.classList.contains("active")) { return; }
+
+				disableElementsByClassname(".message_type_button");
+				disableElementsByClassname(".message_type_tab");
+
+				pressed_button.classList.add("active");
+
+				document.getElementById("chat_" + pressed_button.id.replace("button", "tab")).className += " active";
+			}
+
+			function switchDrawingTool() {
+				let pressed_button = event.currentTarget;
+				if (pressed_button.classList.contains("active")) { return; }
+
+				disableElementsByClassname(".tool_button_state");
+				pressed_button.classList.add("active");
+			}
+
+			function disableElementsByClassname(classname) {
+				document.querySelectorAll(classname).forEach(
+					element => element.classList.remove("active")
+				);
+			}
+
+			function sendMessage(event) {
+		    let new_message;
+		    let delayed_scroll = false;
+
+		    if (document.getElementById("text_button").classList.contains("active")) {
+	        new_message = newTextMessage();
+		    } else if (document.getElementById("paint_button").classList.contains("active")) {
+		    	if (history.length == 0) { return; }
+		    	new_message = newDrawingMessage();
+		    	delayed_scroll = true;
+		    } else if (event.currentTarget.classList.contains("sticker")) {
+	        new_message = newStickerMessage(event);
+		    }
+
+		    if (!new_message) { return; }
+
+		    let chat = document.getElementById("chat_content");
+		    chat.appendChild(new_message);
+
+		    if (!delayed_scroll) { scrollChatToBottom(); }
+		    addMessagePreview();
+			}
+
+			function scrollChatToBottom() {
+			  let chat_container = document.getElementById("chat_container");
+		    chat_container.scrollTop = chat_container.scrollHeight;
+			}
+
+			function newTextMessage() {
+		    let input = document.getElementById("message_input");
+		    if (input.value.trim() === "") { return; }
+
+		    let new_message = document.createElement("div");
+		    new_message.className = "message sent text_message";
+
+		    let bubble = document.createElement("div");
+		    bubble.className = "bubble";
+		    bubble.textContent = input.value;
+
+		    new_message.appendChild(createMessageActions());
+		    new_message.appendChild(bubble);
+
+		    input.value = "";
+
+		    return new_message;
+			}
+
+			function newDrawingMessage() {
+				// canvas.toBlob(blob => { console.log(blob); }, "image/png"); // will need blob for backend
+		    let img = document.createElement("img");
+
+		    img.src = canvas.toDataURL("image/png");
+		    img.className = "chat_drawing";
+		    img.onload = () => { scrollChatToBottom(); }
+
+		    clearCanvas();
+		    history = [];
+
+		    let new_message = document.createElement("div");
+		    new_message.className = "message sent drawing_message";
+
+		    new_message.appendChild(createMessageActions());
+		    new_message.appendChild(img);
+
+		    return new_message;
+			}
+
+			function newStickerMessage(event) {
+		    let sticker = event.currentTarget.children[0];
+
+		    let new_message = document.createElement("div");
+		    new_message.className = "message sent sticker_message";
+
+		    let img = document.createElement("img");
+		    img.className = "chat_sticker";
+		    img.src = sticker.src;
+
+		    new_message.appendChild(createMessageActions());
+		    new_message.appendChild(img);
+
+		    return new_message;
+			}
+
+			function createMessageActions() {
+				let time = getCurrentTime();
+
+		    let actions = document.createElement("div");
+		    actions.className = "message_actions";
+
+		    actions.innerHTML = `
+	        <span class="reply">↩</span>
+	        <span class="time">` + time + `</span>
+	        <span class="read">Read</span>
+		    `;
+
+		    return actions;
+			}
+
+			function getCurrentTime() {
+				function checkTime(i) {
+		      return (i < 10) ? "0" + i : i;
+		    }
+
+				let now = new Date();
+        let time = checkTime(now.getHours()) + ":" + checkTime(now.getMinutes());
+
+        return time;
+			}
+
+			function addMessagePreview() {
+				let preview = document.getElementById("ame_preview");
+				let preview_time = document.getElementById("ame_time");
+				let chat = document.getElementById("chat_content");
+				let last_message = chat.lastChild;
+				let message_preview = "";
+
+				if (last_message.classList.contains("text_message")) {
+					message_preview = last_message.querySelector(".bubble").innerHTML.slice(0,100);
+				} else if (last_message.classList.contains("sticker_message")) {
+					message_preview = "Sticker";
+				} else if (last_message.classList.contains("drawing_message")) {
+					message_preview = "Drawing";
+				}
+
+				if (last_message.classList.contains("sent")) {
+					message_preview = "You: " + message_preview;
+				}
+
+				preview.textContent = message_preview;
+				preview_time.textContent = getCurrentTime();
+			}
+		</script>
+	</body>
+</html>
